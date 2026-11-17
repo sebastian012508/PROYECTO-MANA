@@ -1,0 +1,26 @@
+
+# Entornos virtuales
+.venv/
+**/.venv/
+venv/
+
+# Archivos temporales de Python
+__pycache__/
+*.py[cod]
+
+# Configuración privada
+.env
+.env.*
+!.env.example
+
+# Registros
+*.log
+detector_api/detector.stop
+
+# Configuración de editores
+.vscode/
+.idea/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db

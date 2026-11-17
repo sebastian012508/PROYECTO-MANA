@@ -1,0 +1,5 @@
+Flask>=3.0,<4.0
+mysql-connector-python>=8.0,<10.0
+numpy==1.26.4
+opencv-contrib-python==4.11.0.86
+mediapipe==0.10.21
