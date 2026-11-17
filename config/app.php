@@ -1,7 +1,7 @@
 <?php
 // Configuración común del proyecto.
 if (!defined('APP_NAME')) {
-    define('APP_NAME', 'Vigía');
+    define('APP_NAME', 'MANA');
 }
 if (!defined('PYTHON_API_URL')) {
     define('PYTHON_API_URL', 'http://127.0.0.1:5001');
