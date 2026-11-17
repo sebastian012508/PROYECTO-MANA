@@ -37,6 +37,8 @@ require __DIR__ . '/../layouts/header.php';
   <form method="post" action="control.php"><input type="hidden" name="accion" value="start"><button class="btn btn-vigia btn-lg" type="submit">▶ Iniciar monitoreo</button></form>
   <form method="post" action="control.php"><input type="hidden" name="accion" value="stop"><button class="btn btn-outline-danger btn-lg" type="submit">■ Detener monitoreo</button></form>
   <a class="btn btn-outline-secondary btn-lg" href="historial.php">Ver mi historial</a>
+  <a class="btn btn-outline-primary btn-lg" href="seleccionar_vehiculo.php"> Seleccionar Vehículo</a>
+  <a class="btn btn-outline-warning btn-lg" href="reportar_vehiculo.php"> Reportar Falla Vehículo</a>
  </div>
  <div class="row g-3 align-items-start">
   <div class="col-lg-8">
