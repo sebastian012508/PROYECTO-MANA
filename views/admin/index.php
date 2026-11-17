@@ -15,6 +15,7 @@ require __DIR__ . '/../layouts/header.php';
  <div><div class="text-uppercase small text-success fw-bold">Administración</div><h1 class="fw-bold">Panel general</h1><p class="muted">Resumen del sistema de monitoreo.</p></div>
  <a class="btn btn-vigia" href="usuarios.php">Gestionar conductores</a>
  <a class="btn btn-vigia" href="vehiculos.php">Gestionar Vehículos</a>
+ <a class="btn btn-vigia" href="mapa.php">Mapa de conductores</a>
 </div>
 <div class="row g-3 mb-4">
  <div class="col-md-4"><div class="card stat-card p-3"><div class="muted">Conductores</div><div class="display-5 fw-bold"><?= $resumen['conductores'] ?></div></div></div>

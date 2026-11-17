@@ -57,7 +57,16 @@ require __DIR__ . '/../layouts/header.php';
   </div>
  </div>
 </div>
+<div class="card panel-card p-4 mb-4">
+ <h4>Compartir mi ubicación</h4>
+ <p class="muted">Tu administrador no puede ver la cámara, pero sí tu posición en el mapa. Mientras esté activado, tu ubicación se envía cada 15 segundos. Mantén esta página abierta.</p>
+ <div class="d-flex flex-wrap gap-2 align-items-center">
+  <button id="btn-ubicacion" class="btn btn-vigia btn-lg" type="button"> Compartir mi ubicación</button>
+  <span id="ubicacion-estado" class="small muted">Ubicación apagada.</span>
+ </div>
+</div>
 <div class="alert alert-warning mb-0"><strong>Seguridad:</strong> este detector es un prototipo de asistencia. No sustituye el descanso, la supervisión ni las medidas de seguridad vial.</div>
+
 <script>
 (function () {
     const api = <?= json_encode(PYTHON_API_URL) ?>;
@@ -132,6 +141,74 @@ require __DIR__ . '/../layouts/header.php';
     }
     actualizarEstado();
     setInterval(actualizarEstado, 700);
+})();
+</script>
+<script>
+// Compartir ubicación con el administrador (se envía cada INTERVALO_MS).
+(function () {
+    const INTERVALO_MS = 15000;
+    const btn = document.getElementById('btn-ubicacion');
+    const estado = document.getElementById('ubicacion-estado');
+    let watchId = null, timer = null, ultima = null;
+
+    function enviar() {
+        if (!ultima) return;
+        fetch('ubicacion.php', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(ultima)
+        })
+        .then(r => r.json())
+        .then(d => {
+            estado.textContent = d.ok
+                ? 'Ubicación enviada a las ' + new Date().toLocaleTimeString()
+                : (d.message || 'No se pudo enviar.');
+        })
+        .catch(() => { estado.textContent = 'Sin conexión con el servidor. Reintentando…'; });
+    }
+
+    function iniciar() {
+        if (!navigator.geolocation) {
+            estado.textContent = 'Este navegador no soporta ubicación.';
+            return;
+        }
+        estado.textContent = 'Obteniendo ubicación…';
+        watchId = navigator.geolocation.watchPosition(
+            pos => {
+                ultima = {lat: pos.coords.latitude, lng: pos.coords.longitude, precision: pos.coords.accuracy};
+                if (!timer) {
+                    enviar();
+                    timer = setInterval(enviar, INTERVALO_MS);
+                }
+            },
+            err => {
+                detener(false);
+                estado.textContent = err.code === 1
+                    ? 'Permiso denegado. Activa la ubicación para este sitio en el navegador.'
+                    : 'No se pudo obtener la ubicación (' + err.message + ').';
+            },
+            {enableHighAccuracy: true, maximumAge: 5000, timeout: 20000}
+        );
+        btn.textContent = '■ Dejar de compartir';
+        btn.className = 'btn btn-outline-danger btn-lg';
+        try { localStorage.setItem('vigia_compartir', '1'); } catch (e) {}
+    }
+
+    function detener(mensaje) {
+        if (watchId !== null) navigator.geolocation.clearWatch(watchId);
+        if (timer) clearInterval(timer);
+        watchId = null; timer = null; ultima = null;
+        btn.textContent = ' Compartir mi ubicación';
+        btn.className = 'btn btn-vigia btn-lg';
+        if (mensaje !== false) estado.textContent = 'Ubicación apagada.';
+        try { localStorage.removeItem('vigia_compartir'); } catch (e) {}
+    }
+
+    btn.addEventListener('click', () => { watchId === null ? iniciar() : detener(); });
+
+    // Si lo tenía activado antes de recargar la página, se reanuda solo.
+    try { if (localStorage.getItem('vigia_compartir') === '1') iniciar(); } catch (e) {}
 })();
 </script>
 <?php require __DIR__ . '/../layouts/footer.php'; ?>
