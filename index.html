@@ -3,157 +3,266 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Detección de Somnolencia al Volante</title>
-    
-    <link rel="stylesheet" href="public/css/style.css">
-    <link rel="stylesheet" href="public/css/diseno.css">
+    <title>MANA | Monitoreo Inteligente y Seguridad Vehicular</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Estilos exclusivos del Landing -->
+    <link rel="stylesheet" href="public/css/landing.css">
+
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 </head>
 <body>
 
-    <header class="header">
-        <div class="logo" style="display: inline-flex; align-items: center; gap: 8px;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2m10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2M6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2zM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17s3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"/>
-            </svg>
-            MANA<span></span>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-mana py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-car-front-fill" viewBox="0 0 16 16">
+                    <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2m10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2M6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2zM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17s3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"/>
+                </svg>
+                <span class="text-info">MANA</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto align-items-center gap-3">
+                    <li class="nav-item"><a class="nav-link" href="#caracteristicas">Tecnología</a></li>
+                    <li class="nav-item">
+                        <a href="views/auth/login.php" class="btn btn-ps btn-sm px-4">Iniciar Sesión</a>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </nav>
 
-        <nav class="nav">
-            <a href="#problema">El Problema</a>
-            <a href="#tecnologia">Solucion</a>
-            <a href="#noticias">Noticias</a>
-        </nav>
+    <!-- Hero Principal -->
+    <section class="hero-section pt-5">
+        <div class="container">
+            <div class="row align-items-center gy-5">
+                <div class="col-lg-6 reveal active">
+                    <span class="badge rounded-pill bg-primary bg-opacity-25 text-info border border-info px-3 py-2 mb-3">
+                        AUTO-CUIDADO
+                    </span>
+                    <h1 class="display-4 fw-bold mb-4">
+                        Control total de tu Seguridad en <span class="text-gradient">tiempo real</span>
+                    </h1>
+                    <p class="lead text-secondary mb-4">
+                        Previene accidentes mediante detección inteligente de somnolencia en cabina y monitorea cada vehículo al instante desde un solo panel.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="#noticias" class="btn btn-ps">
+                             Noticias y Prevención <i class="bi bi-arrow-down-circle ms-2"></i>
+                        </a>
+                    </div>
+                </div>
 
-        <a href="views/auth/login.php" class="btn-login">Iniciar Sesión</a>
-
-    </header>
-
-    <section class="hero">
-        <div class="hero-content">
-            <span class="tag">PROYECTO PROGRAMACION II</span>
-            <h1>Detección Inteligente de Somnolencia al Volante</h1>
-            <p>Sistema de alerta temprana basado en visión por computadora para la prevención de accidentes de tránsito en carreteras.</p>
-            <div class="hero-buttons">
-                <a href="#tecnologia" class="btn-primary">Ver Tecnología</a>
-                <a href="#comparativa" class="btn-secondary">Ver Comparativa</a>
+                <!-- Elemento gráfico animado -->
+                <div class="col-lg-6 text-center reveal active">
+                    <div class="feature-card floating-element p-5 mx-auto" style="max-width: 440px;">
+                        <i class="bi bi-eye-fill text-info" style="font-size: 4.5rem;"></i>
+                        <h4 class="mt-3 fw-bold">Detector de Somnolencia Activo </h4>
+                        <p class="text-secondary small mb-3">Análisis biométrico de Somnolencia y telemetría de GPS sincronizada</p>
+                        <div class="d-flex justify-content-around border-top border-secondary border-opacity-25 pt-3">
+                            <div>
+                                <span class="d-block fw-bold text-info fs-5">24-7</span>
+                                <small class="text-secondary">Monitoreo</small>
+                            </div>
+                            <div>
+                                <span class="d-block fw-bold text-info fs-5">Sonora</span>
+                                <small class="text-secondary">Alerta</small>
+                            </div>
+                            <div>
+                                <span class="d-block fw-bold text-info fs-5">GPS</span>
+                                <small class="text-secondary">En Vivo</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="problema" class="seccion">
-        <h2>El Problema</h2>
-        <p class="subtitulo">La fatiga y el agotamiento en rutas de transporte de carga pesada e interdepartamental.</p>
-        
-        <div class="grid-tarjetas">
-            <div class="tarjeta">
-                <h3>Riesgo Biológico</h3>
-                <p>El cansancio reduce los tiempos de reacción y provoca micro-sueños involuntarios antes de que el conductor sea consciente.</p>
+    <!-- Sección de Tecnología y Módulos -->
+    <section id="caracteristicas" class="py-5 my-5">
+        <div class="container">
+            <div class="text-center mb-5 reveal">
+                <span class="badge rounded-pill bg-primary bg-opacity-25 text-info border border-info px-3 py-2 mb-2">
+                    Arquitectura Híbrida 
+                </span>
+                <h2 class="fw-bold display-6">Tecnología del Ecosistema <span class="text-gradient">MANA</span></h2>
+                <p class="text-secondary mx-auto" style="max-width: 620px;">
+                    Combinamos visión artificial en cabina con rastreo satelital en tiempo real para blindar la seguridad de tus conductores y vehículos.
+                </p>
             </div>
-            <div class="tarjeta">
-                <h3>Contexto Nacional</h3>
-                <p>En Bolivia, las extensas jornadas nocturnas y el estado de las carreteras agravan las consecuencias del error humano.</p>
+
+            <div class="row g-4">
+                <!-- Tarjeta 1: Visión Artificial -->
+                <div class="col-md-4 reveal">
+                    <div class="feature-card">
+                        <div class="icon-box">
+                            <i class="bi bi-eye"></i>
+                        </div>
+                        <h5 class="fw-bold text-white">Detección Biométrica IA</h5>
+                        <p class="text-secondary small mb-0">
+                            Analiza los rasgos faciales del conductor en tiempo real para detectar microsueños, fatiga o distracciones antes de que ocurra un accidente.
+                        </p>
+                        <span class="tech-tag"><i class="bi bi-cpu me-1"></i>Motor Python + OpenCV</span>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 2: Rastreo GPS -->
+                <div class="col-md-4 reveal">
+                    <div class="feature-card">
+                        <div class="icon-box">
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+                        <h5 class="fw-bold text-white">Telemetría y Mapa en Vivo</h5>
+                        <p class="text-secondary small mb-0">
+                            Visualiza la ubicación exacta de cada unidad activa en un mapa interactivo y audita el historial completo de rutas y paradas.
+                        </p>
+                        <span class="tech-tag"><i class="bi bi-broadcast me-1"></i>Sincronización GPS Continua</span>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 3: Gestión y Alertas -->
+                <div class="col-md-4 reveal">
+                    <div class="feature-card">
+                        <div class="icon-box">
+                            <i class="bi bi-shield-exclamation"></i>
+                        </div>
+                        <h5 class="fw-bold text-white">Alertas y Control de Flota</h5>
+                        <p class="text-secondary small mb-0">
+                            Notificaciones instantáneas al panel central cuando se detecta una anomalía, junto con reportes de estado mecánico por vehículo.
+                        </p>
+                        <span class="tech-tag"><i class="bi bi-speedometer2 me-1"></i>Panel Admin &amp; Conductor</span>
+                    </div>
+                </div>
             </div>
-            <div class="tarjeta">
-                <h3>Control Analógico Insuficiente</h3>
-                <p>Las bitácoras manuales de descanso son manipulables y no consideran las variables biológicas reales del conductor.</p>
+        </div>
+    </section>
+    <!-- Sección de Noticias y Estadísticas de Accidentes -->
+    <section id="noticias" class="py-5 my-5">
+        <div class="container">
+            <div class="text-center mb-5 reveal">
+                <span class="badge rounded-pill bg-danger bg-opacity-25 text-danger border border-danger px-3 py-2 mb-2">
+                    <i class="bi bi-exclamation-triangle-fill me-1"></i> Seguridad  y Datos Reales
+                </span>
+                <h2 class="fw-bold display-6">Noticias y Prevención de <span class="text-gradient">Accidentes</span></h2>
+                <p class="text-secondary mx-auto" style="max-width: 650px;">
+                    La fatiga y el microsueño al volante son una de las principales causas de siniestros en carretera. Conoce el impacto y las últimas alertas viales.
+                </p>
+            </div>
+            <!-- INSERTAR AQUÍ EL CONTENEDOR DEL AUTO 3D -->
+            <div class="wrapper-auto-3d">
+                <div id="contenedor-auto-3d"></div>
+                <span class="hint-3d">↻ Arrastra para mover el vehiculo (¡EVITA QUE TU AUTO TERMINE DE ESTA MANERA!)</span>
+            </div>
+
+            <!-- Franja de Datos / Impacto -->
+            <div class="row g-4 mb-5 reveal">
+                <div class="col-md-4">
+                    <div class="stat-banner text-center">
+                        <h3 class="fw-bold text-info display-6 mb-1">20% - 30%</h3>
+                        <p class="text-secondary small mb-0">De los accidentes graves en carretera están relacionados con la fatiga del conductor.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-banner text-center">
+                        <h3 class="fw-bold text-warning display-6 mb-1">3 a 5 seg</h3>
+                        <p class="text-secondary small mb-0">Dura un microsueño promedio; a 80 km/h el vehículo recorre más de 100 metros sin control.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-banner text-center">
+                        <h3 class="fw-bold text-success display-6 mb-1">-85%</h3>
+                        <p class="text-secondary small mb-0">Reducción de incidentes mediante alertas sonoras tempranas en cabina.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjetas de Noticias -->
+            <div class="row g-4">
+                <!-- Noticia 1 -->
+                <div class="col-md-4 reveal">
+                    <div class="feature-card d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-info bg-opacity-25 text-info">Seguridad Vial</span>
+                                <small class="text-secondary"><i class="bi bi-calendar3 me-1"></i>Actualidad</small>
+                            </div>
+                            <h5 class="fw-bold text-white mb-3">El peligro silencioso de los microsueños en rutas largas</h5>
+                            <p class="text-secondary small">
+                                Estudios de tránsito advierten que conducir con menos de 5 horas de descanso equivale a manejar bajo los efectos del alcohol, reduciendo drásticamente los reflejos.
+                            </p>
+                        </div>
+                        <div class="pt-3 border-top border-secondary border-opacity-25">
+                            <span class="text-info small fw-semibold"><i class="bi bi-shield-check me-1"></i>Prevención activa con MANA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Noticia 2 -->
+                <div class="col-md-4 reveal">
+                    <div class="feature-card d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-warning bg-opacity-25 text-warning">Transporte Pesado</span>
+                                <small class="text-secondary"><i class="bi bi-calendar3 me-1"></i>Reporte</small>
+                            </div>
+                            <h5 class="fw-bold text-white mb-3">Horarios críticos: madrugada y primeras horas de la tarde</h5>
+                            <p class="text-secondary small">
+                                Los registros de siniestralidad muestran un repunte de salidas de vía entre las 02:00 y 05:00 AM debido a los ciclos circadianos del cuerpo humano.
+                            </p>
+                        </div>
+                        <div class="pt-3 border-top border-secondary border-opacity-25">
+                            <span class="text-info small fw-semibold"><i class="bi bi-eye me-1"></i>Monitoreo ocular continuo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Noticia 3 -->
+                <div class="col-md-4 reveal">
+                    <div class="feature-card d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-primary bg-opacity-25 text-info">Innovación</span>
+                                <small class="text-secondary"><i class="bi bi-calendar3 me-1"></i>Tecnología</small>
+                            </div>
+                            <h5 class="fw-bold text-white mb-3">Visión artificial y GPS: el estándar en flotas modernas</h5>
+                            <p class="text-secondary small">
+                                La integración de cámaras inteligentes con geolocalización en tiempo real permite a los centros de control asistir de inmediato ante cualquier alerta de somnolencia.
+                            </p>
+                        </div>
+                        <div class="pt-3 border-top border-secondary border-opacity-25">
+                            <span class="text-info small fw-semibold"><i class="bi bi-geo-alt me-1"></i>Trazabilidad total en mapa</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="tecnologia" class="seccion bg-alt">
-        <h2> ¿Cómo Funciona la Solución?</h2>
-        <p class="subtitulo">Análisis biométrico facial liviano en tiempo real mediante cámara web estándar.</p>
-
-        <div class="grid-tecnologia">
-            <div class="tarjeta-tech">
-                <div class="badge">EAR</div>
-                <h3>Eye Aspect Ratio ( Relación de aspecto del ojo)  </h3>
-                <p>Mide la distancia biométrica de apertura de los ojos para detectar parpadeos prolongados y micro-sueños.</p>
-            </div>
-            <div class="tarjeta-tech">
-                <div class="badge">MAR</div>
-                <h3>Mouth Aspect Ratio (Relación de aspecto)</h3>
-                <p>Calcula la apertura de la cavidad bucal para identificar bostezos frecuentes como indicación de cansancio temprano.</p>
-            </div>
-            <div class="tarjeta-tech">
-                <div class="badge">468 Puntos</div>
-                <h3>Malla MediaPipe</h3>
-                <p>Realiza un rastreo facial adaptable que mantiene la precisión aun con leves movimientos de cabeza.</p>
-            </div>
+    <!-- Footer -->
+    <footer class="border-top border-secondary border-opacity-25 py-4 text-center text-secondary small">
+        <div class="container">
+            &copy; 2026 PROYECTO MANA — Sistema de Control y Seguridad Vehicular.
         </div>
-    </section>
-<section id="noticias" class="seccion noticias-section">
-
-    <h2>Accidentes por Somnolencia en Bolivia</h2>
-    <p class="subtitulo">
-        Noticias reales y estadísticas de seguridad vial que muestran
-        la importancia de prevenir la fatiga al volante.
-    </p>
-
-    <div class="grid-noticias">
-
-        <div class="tarjeta-noticia estadistica">
-            <span class="anio">2023</span>
-            <h3>18.570 accidentes registrados</h3>
-            <p>
-                Bolivia registró 18.570 hechos y accidentes de tránsito
-                durante esta gestión. La cifra incluye distintas causas,
-                no solamente la somnolencia.
-            </p>
-
-        </div>
-
-        <div class="tarjeta-noticia estadistica">
-            <span class="anio">2024</span>
-            <h3>14 personas fallecidas en la ruta Oruro-Potosí</h3>
-            <p>
-                En abril de 2024, un accidente entre un tráiler y un
-                minibús dejó 14 fallecidos. Según el reporte periodístico,
-                la somnolencia del conductor del camión habría causado
-                la invasión de carril.
-            </p>
-          
-        </div>
-
-        <div class="tarjeta-noticia estadistica">
-            <span class="anio">2025</span>
-            <h3>Accidente por cansancio en La Paz</h3>
-            <p>
-                En julio de 2025, un conductor volcó su vehículo en la
-                avenida Zabaleta. Según el informe preliminar de bomberos,
-                el conductor se habría quedado dormido al volante.
-            </p>
-        </div>
-
-        <div class="tarjeta-noticia estadistica">
-            <span class="anio">2022</span>
-            <h3>Accidente en la autopista La Paz-El Alto</h3>
-            <p>
-                Un conductor de ómnibus falleció tras chocar contra
-                un separador vial. La Policía señaló la somnolencia
-                como una posible causa del accidente.
-            </p>
-        </div>
-
-    </div>
-
-    <div class="aviso-estadistico">
-        <strong>Importante:</strong>
-        Las cifras anuales corresponden al total de accidentes de tránsito
-        registrados en el país. Las noticias describen incidentes concretos
-        en las que se informó de una posible relación con la somnolencia.
-        No existe aquí un recuento anual verificado de accidentes causados
-        exclusivamente por fatiga.
-    </div>
-
-</section>
-
-    
-
-    <footer class="footer">
-        <p>Proyecto de Investigación Aplicada — Detección de Somnolencia al Volante</p>
-        <p>Basado en investigaciones académicas de Lema Pilco (2021), Soukupová & Čech (2016) y NHTSA.</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="public/js/landing.js"></script>
+
+    <script type="importmap">
+     {
+        "imports": {
+           "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+           "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+     }
+    </script>
+    <script type="module" src="public/css/js/car3d.js"></script>
 </body>
 </html>

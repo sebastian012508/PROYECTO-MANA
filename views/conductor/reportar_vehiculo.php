@@ -28,7 +28,7 @@ $error = '';
 $exito = '';
 
 if (isset($_GET['enviado']) && $_GET['enviado'] === '1') {
-    $exito = 'Reporte de novedad/falla enviado correctamente al administrador.';
+    $exito = 'Reporte de falla o novedad enviado correctamente al administrador.';
 }
 
 // Valores por defecto para conservar lo escrito si ocurre un error
