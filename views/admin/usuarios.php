@@ -19,7 +19,7 @@ require __DIR__ . '/../layouts/header.php';
  <div class="col-lg-5"><div class="card panel-card p-4"><h5>Registrar conductor</h5><form method="post">
   <label class="form-label">Nombre completo</label><input class="form-control mb-3" name="nombre" required>
   <label class="form-label">Usuario</label><input class="form-control mb-3" name="usuario" required>
-  <label class="form-label">Correo (opcional)</label><input class="form-control mb-3" type="email" name="correo">
+  <label class="form-label">Correo (obligatorio)</label><input class="form-control mb-3" type="email" name="correo" required>
   <label class="form-label">Contraseña (mínimo 8 caracteres)</label><input class="form-control mb-3" type="password" name="password" minlength="8" required>
   <button class="btn btn-vigia" type="submit">Crear cuenta</button>
  </form></div></div>

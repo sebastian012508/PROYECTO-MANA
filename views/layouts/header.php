@@ -27,6 +27,8 @@ $pageTitle = $pageTitle ?? APP_NAME;
    <?php if (!empty($_SESSION['id_usuario'])): ?>
     <span class="text-white-50 small d-none d-md-inline"><?= htmlspecialchars($_SESSION['nombre'] ?? '') ?></span>
     <a class="btn btn-outline-light btn-sm" href="<?= htmlspecialchars(APP_BASE_URL) ?>/views/auth/logout.php">Cerrar sesión</a>
+   <?php elseif (!empty($botonAdmin)): ?>
+    <a class="btn btn-outline-light btn-sm" href="<?= htmlspecialchars(APP_BASE_URL) ?>/views/auth/solicitar_admin.php">Solicitar Ser Conductor</a>
    <?php else: ?>
     <a class="btn btn-outline-light btn-sm" href="<?= htmlspecialchars(APP_BASE_URL) ?>/views/auth/login.php">Ingresar</a>
    <?php endif; ?>

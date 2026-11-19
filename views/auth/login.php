@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $pageTitle = 'Iniciar sesión';
+$botonAdmin = true; // En el login el boton de arriba lleva a solicitar_admin.php
 require __DIR__ . '/../layouts/header.php';
 ?>
 <div class="auth-wrap">
