@@ -16,6 +16,11 @@ $apiStatus = (new DetectorController())->estado();
 $pageTitle = 'Panel conductor';
 require __DIR__ . '/../layouts/header.php';
 ?>
+
+<!-- Estilos Neón exclusivos para el panel del conductor -->
+<link rel="stylesheet" href="<?= htmlspecialchars(APP_BASE_URL) ?>/public/css/conductor_neon.css">
+
+<div class="conductor-neon-scope">
 <?php if (!empty($_SESSION['flash'])): ?>
  <div class="alert alert-info"><?= htmlspecialchars($_SESSION['flash']) ?></div>
  <?php unset($_SESSION['flash']); ?>
@@ -66,6 +71,7 @@ require __DIR__ . '/../layouts/header.php';
  </div>
 </div>
 <div class="alert alert-warning mb-0"><strong>Seguridad:</strong> este detector es un prototipo de asistencia. No sustituye el descanso, la supervisión ni las medidas de seguridad vial.</div>
+</div>
 
 <script>
 (function () {

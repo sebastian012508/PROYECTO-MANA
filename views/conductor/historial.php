@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../app/helpers/auth.php';
 require_role('CONDUCTOR');
+require_once __DIR__ . '/../../config/app.php';
 require_once __DIR__ . '/../../config/db.php';
 require_once __DIR__ . '/../../app/controllers/HistorialController.php';
 
@@ -20,6 +21,11 @@ function formatoDuracion(?int $segundos): string
 $pageTitle = 'Mi historial';
 require __DIR__ . '/../layouts/header.php';
 ?>
+
+<!-- Estilos estáticos con los colores del landing page -->
+<link rel="stylesheet" href="<?= htmlspecialchars(APP_BASE_URL) ?>/public/css/conductor_neon.css">
+
+<div class="conductor-landing-static">
 <h1 class="fw-bold">Mi historial</h1>
 <p class="muted">Sesiones de monitoreo y alertas registradas en la base de datos para tu cuenta.</p>
 <div class="card panel-card p-3">
@@ -44,4 +50,5 @@ require __DIR__ . '/../layouts/header.php';
  </div>
 </div>
 <a class="btn btn-outline-secondary mt-3" href="index.php">Volver al panel</a>
+</div>
 <?php require __DIR__ . '/../layouts/footer.php'; ?>

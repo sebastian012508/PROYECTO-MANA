@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../app/helpers/auth.php';
 require_role('CONDUCTOR');
+require_once __DIR__ . '/../../config/app.php';
 require_once __DIR__ . '/../../config/db.php';
 require_once __DIR__ . '/../../app/models/VehiculoModel.php';
 
@@ -73,6 +74,10 @@ $pageTitle = 'Reportar Novedades del Vehículo';
 require __DIR__ . '/../layouts/header.php';
 ?>
 
+<!-- Estilos limpios, ordenados y desaturados -->
+<link rel="stylesheet" href="<?= htmlspecialchars(APP_BASE_URL) ?>/public/css/conductor_neon.css">
+
+<div class="conductor-refined-matte">
 <div class="mb-4 d-flex justify-content-between align-items-center">
     <div>
         <div class="text-uppercase small text-success fw-bold">Área del Conductor</div>
@@ -134,6 +139,7 @@ require __DIR__ . '/../layouts/header.php';
             <button type="submit" class="btn btn-vigia">Enviar Reporte</button>
         </div>
     </form>
+</div>
 </div>
 
 <?php require __DIR__ . '/../layouts/footer.php'; ?>

@@ -1,13 +1,17 @@
 <?php
 require_once __DIR__ . '/../../app/helpers/auth.php';
 require_role('ADMIN');
+require_once __DIR__ . '/../../config/app.php';
 
 $pageTitle = 'Mapa de conductores';
 require __DIR__ . '/../layouts/header.php';
 ?>
 <!-- Leaflet (el header compartido no tiene espacio para CSS extra, por eso va aquí) -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<!-- Estilos Neón Negro y Verde Neón exclusivos para mapa.php -->
+<link rel="stylesheet" href="<?= htmlspecialchars(APP_BASE_URL) ?>/public/css/admin_neon.css">
 
+<div class="admin-neon-green">
 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
  <div>
   <div class="text-uppercase small text-success fw-bold">Administración</div>
@@ -30,6 +34,7 @@ require __DIR__ . '/../layouts/header.php';
    <div id="lista" class="d-grid gap-2"></div>
   </div>
  </div>
+</div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -83,18 +88,18 @@ require __DIR__ . '/../layouts/header.php';
                 vistos.add(id);
                 const segundos = Number(c.segundos) || 0;
                 const activo = segundos <= ACTIVO_SEG;
-                const color = activo ? '#16a38c' : '#8a94a6';
+                const color = activo ? '#00ff88' : '#8a94a6';
                 const pos = [lat, lng];
                 const detalle = esc(c.nombre) + '<br>Última señal: ' + hace(segundos);
                 const ruta = (Array.isArray(c.ruta) && c.ruta.length) ? c.ruta : [pos];
                 puntosValidos.push(pos);
 
                 if (!marcadores[id]) {
-                    marcadores[id] = L.circleMarker(pos, {radius: 11, weight: 3, color: '#fff', fillOpacity: 1})
+                    marcadores[id] = L.circleMarker(pos, {radius: 11, weight: 3, color: '#050806', fillOpacity: 1})
                         .addTo(mapa)
                         .bindTooltip(esc(c.nombre), {permanent: true, direction: 'top', offset: [0, -10]})
                         .bindPopup(detalle);
-                    rutas[id] = L.polyline([], {weight: 4, opacity: 0.7}).addTo(mapa);
+                    rutas[id] = L.polyline([], {weight: 4, opacity: 0.8}).addTo(mapa);
                 }
                 marcadores[id].setLatLng(pos).setStyle({fillColor: color});
                 marcadores[id].setPopupContent(detalle);

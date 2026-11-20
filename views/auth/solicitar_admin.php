@@ -36,20 +36,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $pageTitle = 'Solicitar ser conductor';
 require __DIR__ . '/../layouts/header.php';
 ?>
-<div class="auth-wrap">
- <div class="card panel-card p-4">
-  <h2 class="fw-bold mb-1">Solicitar ser conductor</h2>
-  <p class="muted">Escribe tus datos y te contactaremos.</p>
-  <?php if ($mensaje): ?><div class="alert alert-success"><?= htmlspecialchars($mensaje) ?></div><?php endif; ?>
-  <?php if ($error): ?><div class="alert alert-danger"><?= htmlspecialchars($error) ?></div><?php endif; ?>
-  <form method="post" action="">
-   <label class="form-label" for="nombre">Nombre</label>
-   <input id="nombre" class="form-control mb-3" name="nombre" required>
-   <label class="form-label" for="correo">Correo</label>
-   <input id="correo" class="form-control mb-4" type="email" name="correo" required>
-   <button class="btn btn-vigia w-100 btn-lg" type="submit">Enviar solicitud</button>
-  </form>
-  <a class="text-center mt-3 small" href="login.php">Volver</a>
- </div>
+
+<!-- CSS exclusivo del Split Screen -->
+<link rel="stylesheet" href="../../public/css/auth_split.css">
+
+<div class="split-container split-celeste">
+  
+  
+  <!-- LADO IZQUIERDO: IMAGEN Y MENSAJE -->
+<div class="split-left" style="background-image: url('../../public/img/autos_carretera.webp');">
+    <div class="split-left-content">
+      <span class="split-badge">Conducción Segura MANA</span>
+      <h2>Únete a la red de <span>conductores protegidos</span></h2>
+      <p>Envía tus datos para habilitar tu acceso al sistema de detección temprana de fatiga y microsueños en ruta.</p>
+    </div>
+  </div>
+
+  <!-- LADO DERECHO: TU TARJETA DE FORMULARIO ORIGINAL -->
+  <div class="split-right">
+    <div class="card panel-card p-4 shadow-sm">
+      <h2 class="fw-bold mb-1">Solicitar ser conductor</h2>
+      <p class="muted">Escribe tus datos y te contactaremos.</p>
+      
+      <?php if ($mensaje): ?><div class="alert alert-success"><?= htmlspecialchars($mensaje) ?></div><?php endif; ?>
+      <?php if ($error): ?><div class="alert alert-danger"><?= htmlspecialchars($error) ?></div><?php endif; ?>
+      
+      <form method="post" action="">
+        <label class="form-label" for="nombre">Nombre</label>
+        <input id="nombre" class="form-control mb-3" name="nombre" required>
+        
+        <label class="form-label" for="correo">Correo</label>
+        <input id="correo" class="form-control mb-4" type="email" name="correo" required>
+        
+        <button class="btn btn-vigia w-100 btn-lg" type="submit">Enviar solicitud</button>
+      </form>
+      
+      <a class="d-block text-center mt-3 small" href="login.php">Volver</a>
+    </div>
+  </div>
+
 </div>
+
 <?php require __DIR__ . '/../layouts/footer.php'; ?>

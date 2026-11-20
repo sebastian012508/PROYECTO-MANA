@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../app/helpers/auth.php';
 require_role('ADMIN');
+require_once __DIR__ . '/../../config/app.php';
 require_once __DIR__ . '/../../config/db.php';
 require_once __DIR__ . '/../../app/models/VehiculoModel.php';
 
@@ -96,6 +97,10 @@ $pageTitle = 'Gestión de Vehículos';
 require __DIR__ . '/../layouts/header.php';
 ?>
 
+<!-- Estilos Neón estáticos con predominio rosa neón -->
+<link rel="stylesheet" href="<?= htmlspecialchars(APP_BASE_URL) ?>/public/css/admin_neon.css">
+
+<div class="admin-neon-pink">
 <div class="mb-4 d-flex justify-content-between align-items-center">
     <div>
         <div class="text-uppercase small text-primary fw-bold">Administración de Flota</div>
@@ -242,6 +247,7 @@ require __DIR__ . '/../layouts/header.php';
             </tbody>
         </table>
     </div>
+</div>
 </div>
 
 <?php require __DIR__ . '/../layouts/footer.php'; ?>

@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../app/helpers/auth.php';
 require_role('ADMIN');
+require_once __DIR__ . '/../../config/app.php';
 require_once __DIR__ . '/../../config/db.php';
 require_once __DIR__ . '/../../app/controllers/AdminController.php';
 
@@ -13,6 +14,11 @@ $users = $controller->conductores();
 $pageTitle = 'Conductores';
 require __DIR__ . '/../layouts/header.php';
 ?>
+
+<!-- Estilos Neón estáticos (solo colores, sin animaciones) -->
+<link rel="stylesheet" href="<?= htmlspecialchars(APP_BASE_URL) ?>/public/css/admin_neon.css">
+
+<div class="admin-neon-static">
 <h1 class="fw-bold">Conductores</h1><p class="muted">Crea cuentas para que cada conductor pueda iniciar sesión.</p>
 <?php if ($msg): ?><div class="alert alert-info"><?= htmlspecialchars($msg) ?></div><?php endif; ?>
 <div class="row g-4">
@@ -27,5 +33,6 @@ require __DIR__ . '/../layouts/header.php';
  <?php foreach ($users as $u): ?><tr><td><?= htmlspecialchars($u['nombre']) ?></td><td><?= htmlspecialchars($u['usuario']) ?></td><td><?= htmlspecialchars($u['correo'] ?? '—') ?></td><td><?= $u['activo'] ? 'Activo' : 'Inactivo' ?></td></tr><?php endforeach; ?>
  <?php if (!$users): ?><tr><td colspan="4" class="text-center muted">No hay conductores registrados.</td></tr><?php endif; ?>
  </tbody></table></div></div></div>
+</div>
 </div>
 <?php require __DIR__ . '/../layouts/footer.php'; ?>

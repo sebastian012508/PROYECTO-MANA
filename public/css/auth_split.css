@@ -1,0 +1,171 @@
+.split-container {
+  display: flex;
+  min-height: calc(100vh - 115px);
+  width: 100%;
+  background-color: #0b192c;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45), 0 0 25px rgba(255, 75, 139, 0.35);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* LADO IZQUIERDO: Imagen */
+.split-left {
+  flex: 1.1;
+  position: relative;
+  background-color: #0b192c;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 3.5rem;
+  overflow: hidden;
+}
+
+.split-left::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(11, 25, 44, 0.95) 10%,
+    rgba(11, 25, 44, 0.45) 60%,
+    rgba(11, 25, 44, 0.25) 100%
+  );
+  z-index: 1;
+}
+
+.split-left-content {
+  position: relative;
+  z-index: 2;
+  max-width: 500px;
+}
+
+.split-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(45, 212, 191, 0.15);
+  border: 1px solid rgba(45, 212, 191, 0.4);
+  color: #2dd4bf;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.split-left-content h2 {
+  font-size: 2rem;
+  line-height: 1.25;
+  margin: 0 0 0.75rem 0;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.split-left-content h2 span {
+  color: #2dd4bf;
+}
+
+.split-left-content p {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* LADO DERECHO: Fondo idéntico al landing page (#0b192c) */
+.split-right {
+  flex: 0.9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+  background-color: #0b192c;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Tarjeta oscura estilo glass/card de tus métricas del landing */
+.split-right .panel-card {
+  width: 100%;
+  max-width: 420px;
+  background-color: #112236 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 16px;
+  color: #ffffff;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35) !important;
+}
+
+.split-right .panel-card h2 {
+  color: #ffffff;
+}
+
+.split-right .panel-card .muted {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.split-right .panel-card .form-label {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Inputs oscuros integrados con el tema */
+.split-right .panel-card .form-control {
+  background-color: #0b192c;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.split-right .panel-card .form-control:focus {
+  background-color: #0b192c;
+  border-color: #2dd4bf;
+  color: #ffffff;
+  box-shadow: 0 0 0 0.2rem rgba(45, 212, 191, 0.2);
+}
+
+/* Enlace Volver en color turquesa del landing */
+.split-right .panel-card a {
+  color: #2dd4bf;
+  text-decoration: none;
+}
+
+.split-right .panel-card a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .split-left {
+    display: none;
+  }
+  .split-right {
+    flex: 1;
+    border-left: none;
+  }
+}
+
+/* Tonalidad rosa neón / magenta vibrante por defecto (login.php) */
+body:has(.split-container) {
+  background: linear-gradient(135deg, #ff5e95 0%, #ff3b7f 55%, #e6296b 100%) !important;
+}
+
+/* Tonalidad celeste neón exclusiva para solicitar_admin.php */
+body:has(.split-celeste) {
+  background: linear-gradient(135deg, #00c4eb 0%, #1ce2ff 55%, #009ec2 100%) !important;
+}
+
+.split-container.split-celeste {
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45), 0 0 25px rgba(28, 226, 255, 0.35);
+}
+
+/* Mantiene el encabezado superior con su color oscuro original */
+header .container,
+nav .container,
+.navbar .container {
+  background-color: transparent !important;
+}
+
+/* Evita fondo blanco en el contenedor principal del cuerpo */
+body:has(.split-container) main,
+body:has(.split-container) > .container,
+body:has(.split-container) > .container-fluid {
+  background-color: transparent !important;
+  max-width: 100% !important;
+}

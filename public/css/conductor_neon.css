@@ -1,0 +1,402 @@
+/* Fondo oscuro azul petróleo inspirado en la imagen de referencia */
+body:has(.conductor-neon-scope) {
+  background: radial-gradient(circle at 85% 15%, #113850 0%, #081b29 50%, #05111b 100%) !important;
+  color: #ffffff !important;
+}
+
+body:has(.conductor-neon-scope) header .container,
+body:has(.conductor-neon-scope) nav .container,
+body:has(.conductor-neon-scope) .navbar .container {
+  background-color: transparent !important;
+}
+
+/* Títulos y subtítulos */
+.conductor-neon-scope h1,
+.conductor-neon-scope h4,
+.conductor-neon-scope .fw-bold {
+  color: #ffffff !important;
+}
+
+.conductor-neon-scope .muted,
+.conductor-neon-scope p {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+/* "ÁREA DEL CONDUCTOR" en celeste neón */
+.conductor-neon-scope .text-success.fw-bold {
+  color: #1ce2ff !important;
+  text-shadow: 0 0 12px rgba(28, 226, 255, 0.45);
+}
+
+/* Estilo oscuro para las tarjetas .stat-card y .panel-card */
+.conductor-neon-scope .stat-card,
+.conductor-neon-scope .panel-card {
+  background-color: #0e2436 !important;
+  border: 1px solid rgba(28, 226, 255, 0.16) !important;
+  border-radius: 16px !important;
+  color: #ffffff !important;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* =========================================================================
+   ANIMACIONES EXCLUSIVAS PARA LAS 3 TARJETAS (.stat-card):
+   Mis sesiones, Mis alertas y Servicio Python
+   ========================================================================= */
+.conductor-neon-scope .stat-card {
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.25s ease,
+              box-shadow 0.25s ease,
+              background-color 0.25s ease !important;
+}
+
+/* Tarjeta 1 (Mis sesiones) y Tarjeta 3 (Servicio Python) -> Celeste Neón al pasar el cursor */
+.conductor-neon-scope .row > div:nth-child(1) .stat-card:hover,
+.conductor-neon-scope .row > div:nth-child(3) .stat-card:hover {
+  transform: translateY(-6px);
+  border-color: #1ce2ff !important;
+  background-color: #122e45 !important;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.45), 0 0 22px rgba(28, 226, 255, 0.45) !important;
+}
+
+/* Tarjeta 2 (Mis alertas) -> Rosa Neón al pasar el cursor */
+.conductor-neon-scope .row > div:nth-child(2) .stat-card:hover {
+  transform: translateY(-6px);
+  border-color: #ff3b7f !important;
+  background-color: #17263d !important;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.45), 0 0 22px rgba(255, 59, 127, 0.5) !important;
+}
+
+/* Efecto de pulsación al hacer clic (:active) en cualquiera de las 3 tarjetas */
+.conductor-neon-scope .stat-card:active {
+  transform: scale(0.96) translateY(-1px) !important;
+  transition-duration: 0.08s !important;
+}
+
+/* =========================================================================
+   CAJA ESTADO DEL DETECTOR, BOTONES Y ALERTA INFERIOR
+   ========================================================================= */
+.conductor-neon-scope .bg-light {
+  background-color: #091826 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Botones principales (Iniciar monitoreo / Compartir mi ubicación) en celeste neón */
+.conductor-neon-scope .btn-vigia {
+  background: linear-gradient(135deg, #00c4eb 0%, #1ce2ff 100%) !important;
+  border: none !important;
+  color: #061523 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 0 16px rgba(28, 226, 255, 0.35);
+}
+
+.conductor-neon-scope .btn-vigia:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 0 22px rgba(28, 226, 255, 0.55);
+}
+
+/* Botón Detener monitoreo en rosa neón */
+.conductor-neon-scope .btn-outline-danger {
+  background-color: rgba(255, 59, 127, 0.14) !important;
+  border-color: #ff3b7f !important;
+  color: #ff6ba0 !important;
+}
+
+.conductor-neon-scope .btn-outline-danger:hover {
+  background-color: #ff3b7f !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 18px rgba(255, 59, 127, 0.45);
+}
+
+/* Botones secundarios adaptados al fondo oscuro */
+.conductor-neon-scope .btn-outline-secondary {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  color: #e2e8f0 !important;
+}
+
+.conductor-neon-scope .btn-outline-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+.conductor-neon-scope .btn-outline-primary {
+  border-color: #1ce2ff !important;
+  color: #1ce2ff !important;
+}
+
+.conductor-neon-scope .btn-outline-primary:hover {
+  background-color: rgba(28, 226, 255, 0.15) !important;
+  color: #ffffff !important;
+}
+
+/* Aviso inferior de seguridad integrado al tema oscuro con borde rosa neón */
+.conductor-neon-scope .alert-warning {
+  background-color: rgba(255, 59, 127, 0.12) !important;
+  border: 1px solid rgba(255, 59, 127, 0.4) !important;
+  color: #ffd6e5 !important;
+}
+/* =========================================================================
+   ESTILO ESTÁTICO CON COLORES DEL LANDING PAGE (views/conductor/historial.php)
+   ========================================================================= */
+body:has(.conductor-landing-static) {
+  background-color: #0b192c !important;
+  color: #ffffff !important;
+}
+
+body:has(.conductor-landing-static) header .container,
+body:has(.conductor-landing-static) nav .container,
+body:has(.conductor-landing-static) .navbar .container {
+  background-color: transparent !important;
+}
+
+.conductor-landing-static h1,
+.conductor-landing-static h2,
+.conductor-landing-static h3,
+.conductor-landing-static h4,
+.conductor-landing-static h5,
+.conductor-landing-static .fw-bold {
+  color: #ffffff !important;
+}
+
+.conductor-landing-static .muted,
+.conductor-landing-static .text-muted,
+.conductor-landing-static p {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Subtítulo superior en turquesa del landing page */
+.conductor-landing-static .text-success.fw-bold,
+.conductor-landing-static .text-primary.fw-bold,
+.conductor-landing-static .text-uppercase.small {
+  color: #2dd4bf !important;
+}
+
+/* Tarjetas estáticas con el tono #112236 del landing */
+.conductor-landing-static .card,
+.conductor-landing-static .panel-card,
+.conductor-landing-static .stat-card {
+  background-color: #112236 !important;
+  border: 1px solid rgba(45, 212, 191, 0.2) !important;
+  border-radius: 16px !important;
+  color: #ffffff !important;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35) !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+/* Botones principales en turquesa del landing */
+.conductor-landing-static .btn-vigia,
+.conductor-landing-static .btn-primary {
+  background-color: #2dd4bf !important;
+  border: none !important;
+  color: #0b192c !important;
+  font-weight: 700 !important;
+  transition: none !important;
+}
+
+/* Botón volver u opciones secundarias */
+.conductor-landing-static .btn-outline-secondary {
+  border-color: rgba(45, 212, 191, 0.45) !important;
+  color: #2dd4bf !important;
+  background-color: rgba(45, 212, 191, 0.08) !important;
+  transition: none !important;
+}
+
+.conductor-landing-static .btn-outline-secondary:hover {
+  background-color: rgba(45, 212, 191, 0.16) !important;
+  color: #ffffff !important;
+}
+
+/* Tabla oscura estática (sin movimiento ni hover animado) */
+.conductor-landing-static .table {
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  margin-bottom: 0 !important;
+}
+
+.conductor-landing-static .table thead th {
+  background-color: #0b192c !important;
+  color: #2dd4bf !important;
+  border-bottom: 1px solid rgba(45, 212, 191, 0.3) !important;
+}
+
+.conductor-landing-static .table tbody tr,
+.conductor-landing-static .table-hover > tbody > tr:hover > * {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.88) !important;
+  --bs-table-accent-bg: transparent !important;
+}
+
+.conductor-landing-static .table tbody td {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.88) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.conductor-landing-static .pill {
+  background-color: rgba(45, 212, 191, 0.15) !important;
+  border: 1px solid rgba(45, 212, 191, 0.4) !important;
+  color: #2dd4bf !important;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+/* =========================================================================
+   COMPLEMENTO PARA views/conductor/seleccionar_vehiculo.php
+   (Mantiene intactos los colores de .badge en la columna Estado)
+   ========================================================================= */
+.conductor-landing-static .alert-success {
+  background-color: rgba(45, 212, 191, 0.14) !important;
+  border: 1px solid rgba(45, 212, 191, 0.45) !important;
+  color: #ffffff !important;
+  border-radius: 12px !important;
+}
+
+.conductor-landing-static .alert-info {
+  background-color: rgba(45, 212, 191, 0.12) !important;
+  border: 1px solid rgba(45, 212, 191, 0.35) !important;
+  color: #e2e8f0 !important;
+  border-radius: 12px !important;
+}
+
+.conductor-landing-static .btn-outline-danger {
+  border-color: #ff3b7f !important;
+  color: #ff6ba0 !important;
+  background-color: rgba(255, 59, 127, 0.12) !important;
+  transition: none !important;
+}
+
+.conductor-landing-static .btn-outline-danger:hover {
+  background-color: #ff3b7f !important;
+  color: #ffffff !important;
+}
+
+.conductor-landing-static .table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: rgba(45, 212, 191, 0.04) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Protege las insignias de Estado ("En uso", "Mantenimiento", "Disponible") */
+.conductor-landing-static .badge {
+  font-weight: 600;
+  padding: 5px 10px;
+}
+/* =========================================================================
+   ESTILO LIMPIO, ORDENADO Y DESATURADO (views/conductor/reportar_vehiculo.php)
+   ========================================================================= */
+body:has(.conductor-refined-matte) {
+  background-color: #0b1622 !important;
+  color: #e2e8f0 !important;
+}
+
+body:has(.conductor-refined-matte) header .container,
+body:has(.conductor-refined-matte) nav .container,
+body:has(.conductor-refined-matte) .navbar .container {
+  background-color: transparent !important;
+}
+
+.conductor-refined-matte h1,
+.conductor-refined-matte h4,
+.conductor-refined-matte .fw-bold {
+  color: #f1f5f9 !important;
+}
+
+.conductor-refined-matte .muted,
+.conductor-refined-matte p {
+  color: #94a3b8 !important;
+}
+
+/* Subtítulo "ÁREA DEL CONDUCTOR" en turquesa suave */
+.conductor-refined-matte .text-success.fw-bold,
+.conductor-refined-matte .text-uppercase.small {
+  color: #4fd1c5 !important;
+  letter-spacing: 0.04em;
+}
+
+/* Tarjeta principal con acento superior sutil en rosa coral desaturado y borde limpio */
+.conductor-refined-matte .panel-card {
+  background-color: #112031 !important;
+  border: 1px solid rgba(148, 163, 184, 0.18) !important;
+  border-top: 3px solid #d96b8e !important;
+  border-radius: 14px !important;
+  color: #e2e8f0 !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.28) !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+/* Etiquetas y campos de formulario ordenados */
+.conductor-refined-matte .form-label {
+  color: #cbd5e1 !important;
+  font-weight: 500;
+  font-size: 0.92rem;
+}
+
+.conductor-refined-matte .form-control,
+.conductor-refined-matte .form-select {
+  background-color: #0b1622 !important;
+  border: 1px solid rgba(148, 163, 184, 0.25) !important;
+  border-radius: 10px !important;
+  color: #f1f5f9 !important;
+  transition: none !important;
+}
+
+.conductor-refined-matte .form-control::placeholder {
+  color: #64748b !important;
+}
+
+/* Enfoque sutil en celeste pizarra suave (sin resplandor chillón) */
+.conductor-refined-matte .form-control:focus,
+.conductor-refined-matte .form-select:focus {
+  border-color: #5ea8d6 !important;
+  box-shadow: 0 0 0 2px rgba(94, 168, 214, 0.18) !important;
+}
+
+/* Botón principal ("Enviar Reporte") en turquesa mate */
+.conductor-refined-matte .btn-vigia,
+.conductor-refined-matte .btn-primary,
+.conductor-refined-matte .btn-success {
+  background-color: #38b2ac !important;
+  border: none !important;
+  border-radius: 10px !important;
+  color: #08121c !important;
+  font-weight: 700 !important;
+  padding: 9px 20px !important;
+  box-shadow: none !important;
+  transition: none !important;
+}
+
+.conductor-refined-matte .btn-vigia:hover {
+  background-color: #4fd1c5 !important;
+}
+
+/* Botón "Volver al panel" discreto con borde celeste suave */
+.conductor-refined-matte .btn-outline-secondary {
+  border-color: rgba(94, 168, 214, 0.4) !important;
+  color: #8cc4e8 !important;
+  background-color: rgba(94, 168, 214, 0.06) !important;
+  border-radius: 10px !important;
+  transition: none !important;
+}
+
+.conductor-refined-matte .btn-outline-secondary:hover {
+  background-color: rgba(94, 168, 214, 0.14) !important;
+  color: #f1f5f9 !important;
+}
+
+/* Alertas de éxito o error desaturadas y limpias */
+.conductor-refined-matte .alert-success {
+  background-color: rgba(56, 178, 172, 0.12) !important;
+  border: 1px solid rgba(56, 178, 172, 0.35) !important;
+  color: #a7f3d0 !important;
+  border-radius: 10px !important;
+}
+
+.conductor-refined-matte .alert-danger {
+  background-color: rgba(217, 107, 142, 0.12) !important;
+  border: 1px solid rgba(217, 107, 142, 0.38) !important;
+  color: #fbcfe8 !important;
+  border-radius: 10px !important;
+}

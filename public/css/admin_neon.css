@@ -1,0 +1,428 @@
+/* =========================================================================
+   PANEL GENERAL ADMINISTRADOR (views/admin/index.php) - CON ANIMACIÓN EN KPI
+   ========================================================================= */
+body:has(.admin-neon-scope) {
+  background: radial-gradient(circle at 85% 15%, #113850 0%, #081b29 50%, #05111b 100%) !important;
+  color: #ffffff !important;
+}
+
+body:has(.admin-neon-scope) header .container,
+body:has(.admin-neon-scope) nav .container,
+body:has(.admin-neon-scope) .navbar .container {
+  background-color: transparent !important;
+}
+
+.admin-neon-scope h1,
+.admin-neon-scope h5,
+.admin-neon-scope .fw-bold {
+  color: #ffffff !important;
+}
+
+.admin-neon-scope .muted,
+.admin-neon-scope p {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+.admin-neon-scope .text-success.fw-bold {
+  color: #1ce2ff !important;
+  text-shadow: 0 0 12px rgba(28, 226, 255, 0.45);
+}
+
+.admin-neon-scope .stat-card,
+.admin-neon-scope .panel-card {
+  background-color: #0e2436 !important;
+  border: 1px solid rgba(28, 226, 255, 0.16) !important;
+  border-radius: 16px !important;
+  color: #ffffff !important;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Animación exclusiva para Conductores (1), Sesiones (2) y Alertas (3) */
+.admin-neon-scope .stat-card {
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.25s ease,
+              box-shadow 0.25s ease,
+              background-color 0.25s ease !important;
+}
+
+.admin-neon-scope .row > div:nth-child(1) .stat-card:hover,
+.admin-neon-scope .row > div:nth-child(2) .stat-card:hover {
+  transform: translateY(-6px);
+  border-color: #1ce2ff !important;
+  background-color: #122e45 !important;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.45), 0 0 22px rgba(28, 226, 255, 0.45) !important;
+}
+
+.admin-neon-scope .row > div:nth-child(3) .stat-card:hover {
+  transform: translateY(-6px);
+  border-color: #ff3b7f !important;
+  background-color: #17263d !important;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.45), 0 0 22px rgba(255, 59, 127, 0.5) !important;
+}
+
+.admin-neon-scope .stat-card:active {
+  transform: scale(0.96) translateY(-1px) !important;
+  transition-duration: 0.08s !important;
+}
+
+.admin-neon-scope .btn-vigia {
+  background: linear-gradient(135deg, #00c4eb 0%, #1ce2ff 100%) !important;
+  border: none !important;
+  color: #061523 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 0 16px rgba(28, 226, 255, 0.35);
+}
+
+.admin-neon-scope .btn-vigia:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 0 22px rgba(28, 226, 255, 0.55);
+}
+
+.admin-neon-scope .table {
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  margin-bottom: 0 !important;
+}
+
+.admin-neon-scope .table thead th {
+  background-color: #091826 !important;
+  color: #1ce2ff !important;
+  border-bottom: 1px solid rgba(28, 226, 255, 0.25) !important;
+}
+
+.admin-neon-scope .table tbody td,
+.admin-neon-scope .table tbody tr {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.88) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.admin-neon-scope .pill {
+  background-color: rgba(255, 59, 127, 0.16) !important;
+  border: 1px solid rgba(255, 59, 127, 0.45) !important;
+  color: #ff85b1 !important;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* =========================================================================
+   ESTILO ESTÁTICO (SOLO COLORES, SIN ANIMACIONES) PARA views/admin/usuarios.php
+   ========================================================================= */
+body:has(.admin-neon-static) {
+  background: radial-gradient(circle at 85% 15%, #113850 0%, #081b29 50%, #05111b 100%) !important;
+  color: #ffffff !important;
+}
+
+body:has(.admin-neon-static) header .container,
+body:has(.admin-neon-static) nav .container,
+body:has(.admin-neon-static) .navbar .container {
+  background-color: transparent !important;
+}
+
+.admin-neon-static h1,
+.admin-neon-static h2,
+.admin-neon-static h3,
+.admin-neon-static h4,
+.admin-neon-static h5,
+.admin-neon-static .fw-bold {
+  color: #ffffff !important;
+}
+
+.admin-neon-static .muted,
+.admin-neon-static p {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+.admin-neon-static .text-success.fw-bold,
+.admin-neon-static .text-uppercase.small {
+  color: #1ce2ff !important;
+  text-shadow: 0 0 12px rgba(28, 226, 255, 0.45);
+}
+
+/* Tarjetas y contenedores sin movimiento ni hover animado */
+.admin-neon-static .card,
+.admin-neon-static .panel-card,
+.admin-neon-static .stat-card {
+  background-color: #0e2436 !important;
+  border: 1px solid rgba(28, 226, 255, 0.16) !important;
+  border-radius: 16px !important;
+  color: #ffffff !important;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35) !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+/* Formularios e inputs oscuros */
+.admin-neon-static .form-label {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.admin-neon-static .form-control,
+.admin-neon-static .form-select {
+  background-color: #091826 !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  color: #ffffff !important;
+}
+
+.admin-neon-static .form-control:focus,
+.admin-neon-static .form-select:focus {
+  border-color: #1ce2ff !important;
+  box-shadow: 0 0 0 0.2rem rgba(28, 226, 255, 0.2) !important;
+}
+
+/* Botones en celeste neón y rosa neón */
+.admin-neon-static .btn-vigia {
+  background: linear-gradient(135deg, #00c4eb 0%, #1ce2ff 100%) !important;
+  border: none !important;
+  color: #061523 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 0 16px rgba(28, 226, 255, 0.35);
+}
+
+.admin-neon-static .btn-vigia:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 0 22px rgba(28, 226, 255, 0.55);
+}
+
+.admin-neon-static .btn-outline-danger,
+.admin-neon-static .btn-danger {
+  background-color: rgba(255, 59, 127, 0.16) !important;
+  border-color: #ff3b7f !important;
+  color: #ff6ba0 !important;
+}
+
+.admin-neon-static .btn-outline-secondary {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  color: #e2e8f0 !important;
+}
+
+.admin-neon-static .btn-outline-primary {
+  border-color: #1ce2ff !important;
+  color: #1ce2ff !important;
+}
+
+/* Tabla oscura estática */
+.admin-neon-static .table {
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  margin-bottom: 0 !important;
+}
+
+.admin-neon-static .table thead th {
+  background-color: #091826 !important;
+  color: #1ce2ff !important;
+  border-bottom: 1px solid rgba(28, 226, 255, 0.25) !important;
+}
+
+.admin-neon-static .table tbody td,
+.admin-neon-static .table tbody tr {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.88) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.admin-neon-static .pill {
+  background-color: rgba(255, 59, 127, 0.16) !important;
+  border: 1px solid rgba(255, 59, 127, 0.45) !important;
+  color: #ff85b1 !important;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* =========================================================================
+   ESTILO ESTÁTICO CON PREDOMINIO ROSA NEÓN (views/admin/vehiculos.php)
+   ========================================================================= */
+body:has(.admin-neon-pink) {
+  background: radial-gradient(circle at 82% 12%, #36132c 0%, #131126 42%, #071624 100%) !important;
+  color: #ffffff !important;
+}
+
+body:has(.admin-neon-pink) header .container,
+body:has(.admin-neon-pink) nav .container,
+body:has(.admin-neon-pink) .navbar .container {
+  background-color: transparent !important;
+}
+
+.admin-neon-pink h1,
+.admin-neon-pink h2,
+.admin-neon-pink h3,
+.admin-neon-pink h4,
+.admin-neon-pink h5,
+.admin-neon-pink .fw-bold {
+  color: #ffffff !important;
+}
+
+.admin-neon-pink .muted,
+.admin-neon-pink p {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+/* Tarjetas estáticas con borde y brillo sutil rosa neón */
+.admin-neon-pink .card,
+.admin-neon-pink .panel-card {
+  background-color: #101d30 !important;
+  border: 1px solid rgba(255, 59, 127, 0.32) !important;
+  border-radius: 16px !important;
+  color: #ffffff !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.4), 0 0 18px rgba(255, 59, 127, 0.08) !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+/* Formularios e inputs con enfoque en rosa neón */
+.admin-neon-pink .form-label {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+
+.admin-neon-pink .form-control,
+.admin-neon-pink .form-select {
+  background-color: #091320 !important;
+  border: 1px solid rgba(255, 59, 127, 0.28) !important;
+  color: #ffffff !important;
+}
+
+.admin-neon-pink .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.admin-neon-pink .form-control:focus,
+.admin-neon-pink .form-select:focus {
+  border-color: #ff3b7f !important;
+  box-shadow: 0 0 0 0.2rem rgba(255, 59, 127, 0.25) !important;
+}
+
+/* Botón principal (Guardar Vehículo) en rosa neón vibrante */
+.admin-neon-pink .btn-vigia,
+.admin-neon-pink .btn-success {
+  background: linear-gradient(135deg, #ff5e95 0%, #ff3b7f 55%, #e6296b 100%) !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  box-shadow: 0 0 18px rgba(255, 59, 127, 0.42) !important;
+}
+
+.admin-neon-pink .btn-vigia:hover,
+.admin-neon-pink .btn-success:hover {
+  filter: brightness(1.08);
+}
+
+/* Tablas oscuras con encabezados rosa neón y filas alternas sutiles */
+.admin-neon-pink .table {
+  color: #ffffff !important;
+  border-color: rgba(255, 59, 127, 0.16) !important;
+  margin-bottom: 0 !important;
+}
+
+.admin-neon-pink .table thead th {
+  background-color: #091320 !important;
+  color: #ff6ba0 !important;
+  border-bottom: 1px solid rgba(255, 59, 127, 0.35) !important;
+}
+
+.admin-neon-pink .table tbody tr {
+  background-color: transparent !important;
+}
+
+.admin-neon-pink .table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: rgba(255, 59, 127, 0.05) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.admin-neon-pink .table tbody td {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Mantiene el color original de las etiquetas de disponibilidad (Disponible / Mantenimiento / En uso) */
+.admin-neon-pink .badge {
+  font-weight: 600;
+  padding: 5px 10px;
+}
+
+/* =========================================================================
+   ESTILO NEGRO Y VERDE NEÓN (views/admin/mapa.php)
+   ========================================================================= */
+body:has(.admin-neon-green) {
+  background: radial-gradient(circle at 80% 15%, #0b2b19 0%, #050a07 48%, #020403 100%) !important;
+  color: #ffffff !important;
+}
+
+body:has(.admin-neon-green) header .container,
+body:has(.admin-neon-green) nav .container,
+body:has(.admin-neon-green) .navbar .container {
+  background-color: transparent !important;
+}
+
+.admin-neon-green h1,
+.admin-neon-green h5,
+.admin-neon-green .fw-bold {
+  color: #ffffff !important;
+}
+
+.admin-neon-green .muted,
+.admin-neon-green p {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+/* Subtítulo "ADMINISTRACIÓN" en verde neón */
+.admin-neon-green .text-success.fw-bold {
+  color: #00ff88 !important;
+  text-shadow: 0 0 12px rgba(0, 255, 136, 0.55);
+}
+
+/* Paneles del mapa y lista de conductores en negro carbón con borde verde neón */
+.admin-neon-green .panel-card {
+  background-color: #080f0b !important;
+  border: 1px solid rgba(0, 255, 136, 0.35) !important;
+  border-radius: 16px !important;
+  color: #ffffff !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.75), 0 0 22px rgba(0, 255, 136, 0.1) !important;
+}
+
+/* Botón "Volver al panel" en verde neón */
+.admin-neon-green .btn-outline-secondary {
+  border-color: rgba(0, 255, 136, 0.55) !important;
+  color: #69ffba !important;
+  background-color: rgba(0, 255, 136, 0.08) !important;
+}
+
+.admin-neon-green .btn-outline-secondary:hover {
+  background-color: #00ff88 !important;
+  color: #031209 !important;
+  font-weight: 600;
+}
+
+/* Botones dinámicos de conductores en la barra lateral (#lista .btn-light) */
+.admin-neon-green #lista .btn-light {
+  background-color: #0d1712 !important;
+  border: 1px solid rgba(0, 255, 136, 0.28) !important;
+  color: #ffffff !important;
+  border-radius: 10px !important;
+}
+
+.admin-neon-green #lista .btn-light:hover {
+  background-color: #12241b !important;
+  border-color: #00ff88 !important;
+}
+
+/* Marco del mapa #mapa y popups/tooltips de Leaflet en negro y verde neón */
+.admin-neon-green #mapa {
+  border: 1px solid rgba(0, 255, 136, 0.45) !important;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.14) !important;
+}
+
+.admin-neon-green .leaflet-popup-content-wrapper,
+.admin-neon-green .leaflet-popup-tip,
+.admin-neon-green .leaflet-tooltip {
+  background-color: #080f0b !important;
+  color: #ffffff !important;
+  border: 1px solid #00ff88 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7) !important;
+}
