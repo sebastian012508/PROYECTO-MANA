@@ -118,7 +118,24 @@ class Camara:
         error_final = None
         inicio_cierre = None
         alerta_guardada = False
+        id_alerta_abierta = None
         ultimo_pitido = 0.0
+
+        def cerrar_alerta_abierta():
+            """Guarda cuánto duró en total el cierre de ojos de la última alerta."""
+            nonlocal id_alerta_abierta
+            if id_alerta_abierta is None or inicio_cierre is None:
+                id_alerta_abierta = None
+                return
+            try:
+                cursor.execute(
+                    "UPDATE alertas SET duracion_cierre_segundos = %s WHERE id_alerta = %s",
+                    (round(time.monotonic() - inicio_cierre, 2), id_alerta_abierta),
+                )
+                db.commit()
+            except Exception as exc:
+                print(f"[BD ERROR] No se pudo actualizar la duración de la alerta: {exc}")
+            id_alerta_abierta = None
 
         try:
             # La cámara se abre primero. No se crea una sesión si no hay cámara.
@@ -131,9 +148,10 @@ class Camara:
                 db = self._conectar_db()
                 cursor = db.cursor()
                 cursor.execute(
-                    "INSERT INTO sesiones (id_usuario, fecha_inicio, estado) "
-                    "VALUES (%s, %s, 'EN_CURSO')",
-                    (user_id, datetime.now()),
+                    "INSERT INTO sesiones (id_usuario, id_vehiculo, fecha_inicio, estado) "
+                    "VALUES (%s, (SELECT id_vehiculo FROM vehiculos "
+                    "WHERE id_cliente_seleccion = %s LIMIT 1), %s, 'EN_CURSO')",
+                    (user_id, user_id, datetime.now()),
                 )
                 id_sesion = cursor.lastrowid
                 db.commit()
@@ -201,6 +219,7 @@ class Camara:
                                     "VALUES (%s, %s, %s, %s)",
                                     (id_sesion, datetime.now(), round(ear, 4), round(cerrados, 2)),
                                 )
+                                id_alerta_abierta = cursor.lastrowid
                                 cursor.execute(
                                     "UPDATE sesiones SET cantidad_alertas = cantidad_alertas + 1 "
                                     "WHERE id_sesion = %s",
@@ -221,6 +240,7 @@ class Camara:
                                 )
                                 print(f"[BD ERROR] Error al guardar alerta: {exc}")
                     else:
+                        cerrar_alerta_abierta()
                         inicio_cierre = None
                         alerta_guardada = False
 
@@ -247,6 +267,7 @@ class Camara:
                             cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2,
                         )
                 else:
+                    cerrar_alerta_abierta()
                     inicio_cierre = None
                     alerta_guardada = False
 
@@ -280,6 +301,7 @@ class Camara:
         finally:
             duracion = int(time.monotonic() - inicio_monotonic)
             if id_sesion is not None and cursor is not None and db is not None:
+                cerrar_alerta_abierta()
                 try:
                     estado_final = 'ERROR' if error_final else 'FINALIZADA'
                     cursor.execute(

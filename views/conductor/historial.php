@@ -5,8 +5,11 @@ require_once __DIR__ . '/../../config/app.php';
 require_once __DIR__ . '/../../config/db.php';
 require_once __DIR__ . '/../../app/controllers/HistorialController.php';
 
+require_once __DIR__ . '/../../app/controllers/ReporteController.php';
+
 $controller = new HistorialController(new HistorialModel($pdo));
 $rows = $controller->listarSesiones((int)$_SESSION['id_usuario']);
+$vehiculosReporte = (new ReporteController(new ReporteModel($pdo)))->opciones()['vehiculos'];
 
 function formatoDuracion(?int $segundos): string
 {
@@ -48,6 +51,32 @@ require __DIR__ . '/../layouts/header.php';
    </tbody>
   </table>
  </div>
+</div>
+<div class="card panel-card p-4 mt-4">
+ <h4 class="mb-1">Descargar mis eventos</h4>
+ <p class="muted">Descarga en PDF el listado de tus eventos de somnolencia, con todos los tipos de alerta y severidades. Deja los filtros vacíos para incluir todo tu historial.</p>
+ <form method="get" action="../reportes/eventos.php" class="row g-3">
+  <div class="col-md-3">
+   <label class="form-label" for="desde">Desde</label>
+   <input type="date" id="desde" name="desde" class="form-control">
+  </div>
+  <div class="col-md-3">
+   <label class="form-label" for="hasta">Hasta</label>
+   <input type="date" id="hasta" name="hasta" class="form-control">
+  </div>
+  <div class="col-md-6">
+   <label class="form-label" for="vehiculo">Placa</label>
+   <select id="vehiculo" name="vehiculo" class="form-select">
+    <option value="">Todas</option>
+    <?php foreach ($vehiculosReporte as $v): ?>
+     <option value="<?= (int)$v['id_vehiculo'] ?>"><?= htmlspecialchars($v['placa']) ?></option>
+    <?php endforeach; ?>
+   </select>
+  </div>
+  <div class="col-12">
+   <button type="submit" class="btn btn-vigia">Descargar PDF</button>
+  </div>
+ </form>
 </div>
 <a class="btn btn-outline-secondary mt-3" href="index.php">Volver al panel</a>
 </div>

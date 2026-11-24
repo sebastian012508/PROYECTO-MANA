@@ -22,6 +22,7 @@ require __DIR__ . '/../layouts/header.php';
  <a class="btn btn-vigia" href="usuarios.php">Gestionar conductores</a>
  <a class="btn btn-vigia" href="vehiculos.php">Gestionar Vehículos</a>
  <a class="btn btn-vigia" href="mapa.php">Mapa de conductores</a>
+ <a class="btn btn-vigia" href="reportes.php">Reportes</a>
 </div>
 <div class="row g-3 mb-4">
  <div class="col-md-4"><div class="card stat-card p-3"><div class="muted">Conductores</div><div class="display-5 fw-bold"><?= $resumen['conductores'] ?></div></div></div>

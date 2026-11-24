@@ -440,3 +440,164 @@ body:has(.admin-neon-green) .navbar .container {
   background-color: rgba(255, 255, 255, 0.14) !important;
   color: #ffffff !important;
 }
+/* Lista de conductores junto al mapa: fondo oscuro para que se lean los nombres */
+.admin-neon-green .btn-light {
+  background-color: #0d1a12 !important;
+  border: 1px solid rgba(0, 255, 136, 0.25) !important;
+  color: #ffffff !important;
+}
+
+.admin-neon-green .btn-light:hover,
+.admin-neon-green .btn-light:focus-visible {
+  background-color: #12261a !important;
+  border-color: rgba(0, 255, 136, 0.55) !important;
+}
+
+/* =========================================================================
+   CONDUCTORES (views/admin/usuarios.php): orden y detalles, mismo celeste
+   ========================================================================= */
+.admin-neon-static h1 {
+  margin-bottom: 0.35rem;
+  letter-spacing: -0.01em;
+}
+
+.admin-neon-static > .d-flex:first-child {
+  margin-bottom: 1.75rem !important;
+}
+
+.admin-neon-static > .d-flex:first-child .btn-outline-secondary:hover {
+  border-color: #1ce2ff !important;
+  color: #1ce2ff !important;
+  background: rgba(28, 226, 255, 0.08) !important;
+}
+
+/* Los dos recuadros con la misma altura */
+.admin-neon-static .row > [class*="col-"] > .card {
+  height: 100%;
+}
+
+/* Título de cada recuadro con línea separadora */
+.admin-neon-static .card h5 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid rgba(28, 226, 255, 0.16);
+}
+
+/* Formulario */
+.admin-neon-static .form-label {
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.admin-neon-static .form-control {
+  min-height: 44px;
+  border-radius: 10px !important;
+}
+
+.admin-neon-static .form-control.mb-3 {
+  margin-bottom: 1.1rem !important;
+}
+
+/* Contraseña con el ojo dentro del mismo campo */
+.admin-neon-static .input-group {
+  background-color: #091826;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+}
+
+.admin-neon-static .input-group:focus-within {
+  border-color: #1ce2ff;
+  box-shadow: 0 0 0 0.2rem rgba(28, 226, 255, 0.2);
+}
+
+.admin-neon-static .input-group .form-control {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.admin-neon-static .input-group .btn-outline-secondary {
+  border: 0 !important;
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  padding: 0 0.9rem;
+}
+
+.admin-neon-static .input-group .btn-outline-secondary:hover {
+  color: #1ce2ff !important;
+}
+
+.admin-neon-static .small.muted {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin-top: 0.5rem;
+}
+
+.admin-neon-static code {
+  color: #1ce2ff;
+}
+
+/* Botón Crear cuenta a todo el ancho */
+.admin-neon-static form > .btn-vigia {
+  width: 100%;
+  min-height: 46px;
+  border-radius: 10px;
+  margin-top: 0.25rem;
+}
+
+/* Tabla con más espacio y sin cortar nombres */
+.admin-neon-static .table thead th {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.75rem 0.7rem;
+  white-space: nowrap;
+}
+
+.admin-neon-static .table tbody td {
+  padding: 0.85rem 0.7rem;
+  vertical-align: middle;
+}
+
+.admin-neon-static .table tbody td:nth-child(3) {
+  word-break: break-all;
+}
+
+.admin-neon-static .table tbody td:nth-child(4),
+.admin-neon-static .table tbody td:nth-child(5) {
+  white-space: nowrap;
+}
+
+.admin-neon-static .table tbody tr:hover td {
+  background-color: rgba(28, 226, 255, 0.05) !important;
+}
+
+.admin-neon-static .table tbody td:first-child {
+  font-weight: 600;
+  color: #ffffff !important;
+}
+
+/* Botón Desactivar / Habilitar */
+.admin-neon-static .table .btn-sm {
+  border-radius: 8px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
+}
+
+.admin-neon-static .table .btn-outline-secondary:hover {
+  border-color: #1ce2ff !important;
+  color: #1ce2ff !important;
+  background: rgba(28, 226, 255, 0.08) !important;
+}
+
+/* Mensaje después de crear o cambiar un conductor */
+.admin-neon-static .alert-info {
+  background: rgba(28, 226, 255, 0.1);
+  border: 1px solid rgba(28, 226, 255, 0.35);
+  color: #c9f6ff;
+  border-radius: 12px;
+}

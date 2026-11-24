@@ -66,10 +66,14 @@ require __DIR__ . '/../layouts/header.php';
 <!-- CSS exclusivo del Split Screen -->
 <link rel="stylesheet" href="<?= htmlspecialchars(APP_BASE_URL) ?>/public/css/auth_split.css">
 
-<div class="split-container">
-  
+<div class="split-container auth-login">
+
   <!-- LADO IZQUIERDO: IMAGEN Y MENSAJE -->
-  <div class="split-left" style="background-image: url('<?= htmlspecialchars(APP_BASE_URL) ?>/public/img/autos_carretera.webp');">
+  <div class="split-left" style="background-image: url('https://images.unsplash.com/photo-1788119117647-c5d2a76593dd?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D');">
+    <div class="split-left-top">
+      <span class="split-marca">MANA</span>
+      <a class="split-volver" href="<?= htmlspecialchars(APP_BASE_URL) ?>/index.html">Volver al inicio <span aria-hidden="true">→</span></a>
+    </div>
     <div class="split-left-content">
       <span class="split-badge">Monitoreo Inteligente en Ruta</span>
       <h2>Prevención activa contra la <span>fatiga al volante</span></h2>
@@ -139,7 +143,7 @@ require __DIR__ . '/../layouts/header.php';
         </button>
       </form>
       
-      <a class="d-block text-center mt-3 small" href="<?= htmlspecialchars(APP_BASE_URL) ?>/index.html">Volver al inicio</a>
+      <a class="d-block text-center mt-3 small solo-movil" href="<?= htmlspecialchars(APP_BASE_URL) ?>/index.html">Volver al inicio</a>
     </div>
   </div>
 

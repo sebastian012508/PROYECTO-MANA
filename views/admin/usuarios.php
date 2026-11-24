@@ -27,7 +27,10 @@ require __DIR__ . '/../layouts/header.php';
 <link rel="stylesheet" href="<?= htmlspecialchars(APP_BASE_URL) ?>/public/css/admin_neon.css">
 
 <div class="admin-neon-static">
-<h1 class="fw-bold">Conductores</h1><p class="muted">Crea cuentas para que cada conductor pueda iniciar sesión.</p>
+<div class="mb-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+ <div><h1 class="fw-bold">Conductores</h1><p class="muted mb-0">Crea cuentas para que cada conductor pueda iniciar sesión.</p></div>
+ <a href="index.php" class="btn btn-outline-secondary">Volver al panel</a>
+</div>
 <?php if ($msg): ?><div class="alert alert-info"><?= htmlspecialchars($msg) ?></div><?php endif; ?>
 <div class="row g-4">
  <div class="col-lg-5"><div class="card panel-card p-4"><h5>Registrar conductor</h5><form method="post">

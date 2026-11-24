@@ -40,11 +40,15 @@ require __DIR__ . '/../layouts/header.php';
 <!-- CSS exclusivo del Split Screen -->
 <link rel="stylesheet" href="../../public/css/auth_split.css">
 
-<div class="split-container split-celeste">
-  
-  
+<div class="split-container auth-login">
+
+
   <!-- LADO IZQUIERDO: IMAGEN Y MENSAJE -->
-<div class="split-left" style="background-image: url('../../public/img/autos_carretera.webp');">
+<div class="split-left" style="background-image: url('../../public/img/solicitar_conductor.jpg');">
+    <div class="split-left-top">
+      <span class="split-marca">MANA</span>
+      <a class="split-volver" href="login.php">Volver <span aria-hidden="true">→</span></a>
+    </div>
     <div class="split-left-content">
       <span class="split-badge">Conducción Segura MANA</span>
       <h2>Únete a la red de <span>conductores protegidos</span></h2>
@@ -71,7 +75,7 @@ require __DIR__ . '/../layouts/header.php';
         <button class="btn btn-vigia w-100 btn-lg" type="submit">Enviar solicitud</button>
       </form>
       
-      <a class="d-block text-center mt-3 small" href="login.php">Volver</a>
+      <a class="d-block text-center mt-3 small solo-movil" href="login.php">Volver</a>
     </div>
   </div>
 

@@ -49,3 +49,38 @@ INSERT IGNORE INTO configuracion (clave, valor, descripcion) VALUES
 ('tiempo_somnolencia_segundos', '2.0', 'Tiempo mínimo de cierre para generar alerta'),
 ('frecuencia_alarma', '3500', 'Frecuencia del pitido en Hz'),
 ('duracion_pitido_ms', '215', 'Duración del pitido en milisegundos');
+
+CREATE TABLE IF NOT EXISTS vehiculos (
+    id_vehiculo INT AUTO_INCREMENT PRIMARY KEY,
+    codigo_vehiculo VARCHAR(30) NOT NULL UNIQUE,
+    placa VARCHAR(15) NOT NULL UNIQUE,
+    tamano VARCHAR(50) NOT NULL,
+    modelo VARCHAR(100) NOT NULL,
+    capacidad VARCHAR(50) NOT NULL,
+    disponibilidad ENUM('Disponible','En uso','Mantenimiento') NOT NULL DEFAULT 'Disponible',
+    categoria VARCHAR(60) NOT NULL,
+    id_cliente_seleccion INT NULL,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_cliente_seleccion) REFERENCES usuarios(id_usuario)
+      ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS reportes_vehiculo (
+    id_reporte INT AUTO_INCREMENT PRIMARY KEY,
+    id_vehiculo INT NOT NULL,
+    id_conductor INT NOT NULL,
+    tipo_problema VARCHAR(60) NOT NULL,
+    descripcion TEXT NOT NULL,
+    fecha_reporte TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_vehiculo) REFERENCES vehiculos(id_vehiculo)
+      ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_conductor) REFERENCES usuarios(id_usuario)
+      ON DELETE CASCADE ON UPDATE CASCADE,
+    INDEX idx_reportes_fecha (fecha_reporte)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Vehículo que tenía el conductor al iniciar cada sesión (lo usa el reporte PDF)
+ALTER TABLE sesiones
+    ADD COLUMN IF NOT EXISTS id_vehiculo INT NULL AFTER id_usuario,
+    ADD FOREIGN KEY IF NOT EXISTS sesiones_vehiculo_fk (id_vehiculo)
+      REFERENCES vehiculos(id_vehiculo) ON DELETE SET NULL ON UPDATE CASCADE;
