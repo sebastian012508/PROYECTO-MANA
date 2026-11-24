@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/AdminModel.php';
+require_once __DIR__ . '/../helpers/seguridad_login.php';
 
 class AdminController
 {
@@ -25,9 +26,17 @@ class AdminController
         $correo = trim($datos['correo'] ?? '');
         $password = $datos['password'] ?? '';
 
-        if ($nombre === '' || $usuario === '' || strlen($password) < 8) {
-            return 'Completa nombre, usuario y una contraseña de al menos 8 caracteres.';
+        if ($nombre === '' || $usuario === '') {
+            return 'Completa nombre y usuario.';
         }
+
+        // === INICIO VALIDACIÓN CONTRASEÑA SEGURA ===
+        $errorPassword = validarPasswordSegura($password);
+        if ($errorPassword !== null) {
+            return $errorPassword;
+        }
+        // === FIN VALIDACIÓN CONTRASEÑA SEGURA ===
+
         if ($correo === '') {
             return 'El correo es obligatorio.';
         }
@@ -64,4 +73,26 @@ class AdminController
             return 'No se pudo crear. El usuario o correo podría estar registrado.';
         }
     }
+
+    // === INICIO HABILITAR / DESHABILITAR CUENTA ===
+    public function actualizarEstadoConductor(int $idUsuario, int $nuevoEstado): string
+    {
+        $nuevoEstado = $nuevoEstado === 1 ? 1 : 0;
+        $user = $this->model->cambiarEstadoUsuario($idUsuario, $nuevoEstado);
+
+        if (!$user) {
+            return 'No se encontró el conductor seleccionado.';
+        }
+
+        if ($nuevoEstado === 1) {
+            limpiarIntentosLogin((string)$user['usuario']);
+            if (!empty($user['correo'])) {
+                limpiarIntentosLogin((string)$user['correo']);
+            }
+            return 'Cuenta habilitada correctamente. El usuario ya puede iniciar sesión.';
+        }
+
+        return 'Cuenta desactivada correctamente.';
+    }
+    // === FIN HABILITAR / DESHABILITAR CUENTA ===
 }

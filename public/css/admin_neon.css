@@ -426,3 +426,17 @@ body:has(.admin-neon-green) .navbar .container {
   border: 1px solid #00ff88 !important;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7) !important;
 }
+/* Botón ojo en campos de contraseña */
+.input-group .btn-outline-secondary {
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  color: #cbd5e1 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-group .btn-outline-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.14) !important;
+  color: #ffffff !important;
+}

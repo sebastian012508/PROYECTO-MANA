@@ -40,4 +40,22 @@ class AdminModel
         );
         $st->execute([$nombre, $usuario, $correo, password_hash($password, PASSWORD_DEFAULT)]);
     }
+
+    // === INICIO SEGURIDAD LOGIN ===
+    public function cambiarEstadoUsuario(int $idUsuario, int $activo): ?array
+    {
+        $stSelect = $this->db->prepare("SELECT usuario, correo FROM usuarios WHERE id_usuario = ? AND rol = 'CONDUCTOR' LIMIT 1");
+        $stSelect->execute([$idUsuario]);
+        $user = $stSelect->fetch(PDO::FETCH_ASSOC);
+
+        if (!$user) {
+            return null;
+        }
+
+        $stUpdate = $this->db->prepare("UPDATE usuarios SET activo = ? WHERE id_usuario = ? AND rol = 'CONDUCTOR'");
+        $stUpdate->execute([$activo, $idUsuario]);
+
+        return $user;
+    }
+    // === FIN SEGURIDAD LOGIN ===
 }
