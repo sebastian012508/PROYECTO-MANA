@@ -27,21 +27,66 @@ class AdminModel
     public function conductores(): array
     {
         return $this->db->query(
-            "SELECT id_usuario, nombre, usuario, correo, activo, fecha_creacion
+            "SELECT id_usuario, nombre, usuario, correo, tipo_licencia, activo, fecha_creacion
              FROM usuarios WHERE rol = 'CONDUCTOR' ORDER BY nombre"
         )->fetchAll();
     }
 
-    public function insertarConductor(string $nombre, string $usuario, ?string $correo, string $password): void
-    {
+    public function insertarConductor(
+        string $nombre,
+        string $usuario,
+        ?string $correo,
+        ?string $tipoLicencia,
+        string $password
+    ): void {
         $st = $this->db->prepare(
-            "INSERT INTO usuarios (nombre, usuario, correo, password_hash, rol)
-             VALUES (?, ?, ?, ?, 'CONDUCTOR')"
+            "INSERT INTO usuarios (nombre, usuario, correo, tipo_licencia, password_hash, rol)
+             VALUES (?, ?, ?, ?, ?, 'CONDUCTOR')"
         );
-        $st->execute([$nombre, $usuario, $correo, password_hash($password, PASSWORD_DEFAULT)]);
+        $st->execute([$nombre, $usuario, $correo, $tipoLicencia, password_hash($password, PASSWORD_DEFAULT)]);
     }
 
-    // === INICIO SEGURIDAD LOGIN ===
+    public function actualizarConductor(
+        int $idUsuario,
+        string $nombre,
+        string $usuario,
+        ?string $correo,
+        ?string $tipoLicencia,
+        int $activo,
+        ?string $nuevaPassword = null
+    ): bool {
+        if ($nuevaPassword !== null && $nuevaPassword !== '') {
+            $st = $this->db->prepare(
+                "UPDATE usuarios
+                 SET nombre = ?, usuario = ?, correo = ?, tipo_licencia = ?, activo = ?, password_hash = ?
+                 WHERE id_usuario = ? AND rol = 'CONDUCTOR'"
+            );
+            return $st->execute([
+                $nombre,
+                $usuario,
+                $correo,
+                $tipoLicencia,
+                $activo,
+                password_hash($nuevaPassword, PASSWORD_DEFAULT),
+                $idUsuario,
+            ]);
+        }
+
+        $st = $this->db->prepare(
+            "UPDATE usuarios
+             SET nombre = ?, usuario = ?, correo = ?, tipo_licencia = ?, activo = ?
+             WHERE id_usuario = ? AND rol = 'CONDUCTOR'"
+        );
+        return $st->execute([
+            $nombre,
+            $usuario,
+            $correo,
+            $tipoLicencia,
+            $activo,
+            $idUsuario,
+        ]);
+    }
+
     public function cambiarEstadoUsuario(int $idUsuario, int $activo): ?array
     {
         $stSelect = $this->db->prepare("SELECT usuario, correo FROM usuarios WHERE id_usuario = ? AND rol = 'CONDUCTOR' LIMIT 1");
@@ -57,5 +102,72 @@ class AdminModel
 
         return $user;
     }
-    // === FIN SEGURIDAD LOGIN ===
+
+    /**
+     * Verifica la contraseña de la cuenta a eliminar y la borra por completo de la base de datos.
+     *
+     * @return array{ok: bool, mensaje: string, usuario?: string, correo?: ?string}
+     */
+    public function eliminarConductorConPassword(int $idUsuario, string $passwordCuenta): array
+    {
+        $stSelect = $this->db->prepare(
+            "SELECT id_usuario, nombre, usuario, correo, password_hash
+             FROM usuarios
+             WHERE id_usuario = ? AND rol = 'CONDUCTOR'
+             LIMIT 1"
+        );
+        $stSelect->execute([$idUsuario]);
+        $user = $stSelect->fetch(PDO::FETCH_ASSOC);
+
+        if (!$user) {
+            return ['ok' => false, 'mensaje' => 'No se encontró la cuenta del conductor seleccionada.'];
+        }
+
+        if (!password_verify($passwordCuenta, (string)$user['password_hash'])) {
+            return ['ok' => false, 'mensaje' => 'La contraseña ingresada no coincide con la de la cuenta "' . $user['usuario'] . '". No se eliminó el registro.'];
+        }
+
+        try {
+            $this->db->beginTransaction();
+
+            // 1. Eliminar alertas asociadas a las sesiones del conductor (si existen tablas hijas sin CASCADE)
+            $stAlertas = $this->db->prepare(
+                "DELETE a FROM alertas a
+                 INNER JOIN sesiones s ON s.id_sesion = a.id_sesion
+                 WHERE s.id_usuario = ?"
+            );
+            $stAlertas->execute([$idUsuario]);
+
+            // 2. Eliminar sesiones del conductor
+            $stSesiones = $this->db->prepare("DELETE FROM sesiones WHERE id_usuario = ?");
+            $stSesiones->execute([$idUsuario]);
+
+            // 3. Liberar vehículo asignado si el esquema tiene id_conductor / id_usuario en vehiculos
+            try {
+                $stVeh = $this->db->prepare("UPDATE vehiculos SET id_conductor = NULL WHERE id_conductor = ?");
+                $stVeh->execute([$idUsuario]);
+            } catch (PDOException $ignored) {
+                // Si la columna tiene otro nombre o no existe en vehiculos, continuar
+            }
+
+            // 4. Eliminar definitivamente el usuario
+            $stDelUser = $this->db->prepare("DELETE FROM usuarios WHERE id_usuario = ? AND rol = 'CONDUCTOR'");
+            $stDelUser->execute([$idUsuario]);
+
+            $this->db->commit();
+
+            return [
+                'ok'      => true,
+                'mensaje' => 'La cuenta "' . $user['usuario'] . '" fue eliminada por completo de la base de datos.',
+                'usuario' => (string)$user['usuario'],
+                'correo'  => $user['correo'] ?? null,
+            ];
+        } catch (PDOException $e) {
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+            error_log('[VIGIA ADMIN DELETE] ' . $e->getMessage());
+            return ['ok' => false, 'mensaje' => 'No se pudo eliminar la cuenta porque tiene registros vinculados en el sistema.'];
+        }
+    }
 }

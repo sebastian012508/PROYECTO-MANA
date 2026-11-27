@@ -11,13 +11,54 @@ class VehiculoModel
         string $modelo,
         string $capacidad,
         string $disponibilidad,
-        string $categoria
+        string $categoria,
+        ?string $color = null,
+        ?string $imagen = null,
+        ?int $idConductor = null
     ): void {
-        $st = $this->db->prepare(
-            "INSERT INTO vehiculos (codigo_vehiculo, placa, tamano, modelo, capacidad, disponibilidad, categoria)
-             VALUES (?, ?, ?, ?, ?, ?, ?)"
-        );
-        $st->execute([$codigo, $placa, $tamano, $modelo, $capacidad, $disponibilidad, $categoria]);
+        $this->db->beginTransaction();
+        try {
+            if ($idConductor !== null && $idConductor > 0) {
+                // Liberar vehículo anterior si ese conductor ya tenía uno asignado
+                $liberar = $this->db->prepare(
+                    "UPDATE vehiculos SET id_cliente_seleccion = NULL, disponibilidad = 'Disponible'
+                     WHERE id_cliente_seleccion = ?"
+                );
+                $liberar->execute([$idConductor]);
+
+                // Si se asigna directamente a un conductor, su estado pasa a 'En uso'
+                if ($disponibilidad === 'Disponible') {
+                    $disponibilidad = 'En uso';
+                }
+            } else {
+                $idConductor = null;
+            }
+
+            $st = $this->db->prepare(
+                "INSERT INTO vehiculos
+                 (codigo_vehiculo, placa, tamano, modelo, color, imagen, capacidad, disponibilidad, categoria, id_cliente_seleccion)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            );
+            $st->execute([
+                $codigo,
+                $placa,
+                $tamano,
+                $modelo,
+                $color !== '' ? $color : null,
+                $imagen,
+                $capacidad,
+                $disponibilidad,
+                $categoria,
+                $idConductor,
+            ]);
+
+            $this->db->commit();
+        } catch (Throwable $e) {
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+            throw $e;
+        }
     }
 
     public function listarTodos(): array
@@ -27,6 +68,51 @@ class VehiculoModel
                 LEFT JOIN usuarios u ON u.id_usuario = v.id_cliente_seleccion
                 ORDER BY v.fecha_registro DESC";
         return $this->db->query($sql)->fetchAll();
+    }
+
+    public function listarConductoresActivos(): array
+    {
+        $sql = "SELECT id_usuario, nombre, usuario
+                FROM usuarios
+                WHERE rol = 'CONDUCTOR' AND activo = 1
+                ORDER BY nombre ASC";
+        return $this->db->query($sql)->fetchAll();
+    }
+
+    public function asignarConductorDirecto(int $idVehiculo, ?int $idConductor): void
+    {
+        $this->db->beginTransaction();
+        try {
+            if ($idConductor !== null && $idConductor > 0) {
+                // Liberar vehículo anterior del conductor
+                $liberarPrevio = $this->db->prepare(
+                    "UPDATE vehiculos SET id_cliente_seleccion = NULL, disponibilidad = 'Disponible'
+                     WHERE id_cliente_seleccion = ? AND id_vehiculo <> ?"
+                );
+                $liberarPrevio->execute([$idConductor, $idVehiculo]);
+
+                // Asignar este vehículo al conductor
+                $asignar = $this->db->prepare(
+                    "UPDATE vehiculos SET id_cliente_seleccion = ?, disponibilidad = 'En uso'
+                     WHERE id_vehiculo = ?"
+                );
+                $asignar->execute([$idConductor, $idVehiculo]);
+            } else {
+                // Dejar vehículo sin conductor asignado
+                $desasignar = $this->db->prepare(
+                    "UPDATE vehiculos SET id_cliente_seleccion = NULL,
+                            disponibilidad = CASE WHEN disponibilidad = 'En uso' THEN 'Disponible' ELSE disponibilidad END
+                     WHERE id_vehiculo = ?"
+                );
+                $desasignar->execute([$idVehiculo]);
+            }
+            $this->db->commit();
+        } catch (Throwable $e) {
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+            throw $e;
+        }
     }
 
     public function vehiculoActualConductor(int $idConductor): ?array
@@ -39,14 +125,12 @@ class VehiculoModel
 
     public function seleccionarVehiculo(int $idVehiculo, int $idConductor): bool
     {
-        // Liberar vehículo anterior si el chofer ya tenía uno asignado
         $liberar = $this->db->prepare(
             "UPDATE vehiculos SET id_cliente_seleccion = NULL, disponibilidad = 'Disponible'
              WHERE id_cliente_seleccion = ?"
         );
         $liberar->execute([$idConductor]);
 
-        // Asignar el nuevo vehículo seleccionado si está Disponible
         $asignar = $this->db->prepare(
             "UPDATE vehiculos SET id_cliente_seleccion = ?, disponibilidad = 'En uso'
              WHERE id_vehiculo = ? AND disponibilidad = 'Disponible'"

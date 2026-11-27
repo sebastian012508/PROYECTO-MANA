@@ -59,17 +59,36 @@ require __DIR__ . '/../layouts/header.php';
 <?php endif; ?>
 
 <?php if ($vehiculoActual): ?>
+    <?php
+    $urlImgActual = !empty($vehiculoActual['imagen'])
+        ? APP_BASE_URL . '/' . ltrim((string)$vehiculoActual['imagen'], '/')
+        : '';
+    ?>
     <div class="alert alert-success d-flex justify-content-between align-items-center flex-wrap gap-2">
         <div>
             <strong>Vehículo actual asignado:</strong>
-            <?= htmlspecialchars($vehiculoActual['codigo_vehiculo']) ?> — <?= htmlspecialchars($vehiculoActual['modelo']) ?> (Placa: <?= htmlspecialchars($vehiculoActual['placa']) ?>)
+            <?= htmlspecialchars($vehiculoActual['codigo_vehiculo']) ?> — <?= htmlspecialchars($vehiculoActual['modelo']) ?>
+            (Placa: <?= htmlspecialchars($vehiculoActual['placa']) ?><?= !empty($vehiculoActual['color']) ? ' | Color: ' . htmlspecialchars($vehiculoActual['color']) : '' ?>)
         </div>
-        <form method="post" class="m-0">
-            <input type="hidden" name="accion" value="liberar">
-            <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Seguro que deseas dejar este vehículo?');">
-                Dejar vehículo
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+            <button type="button"
+                    class="btn btn-sm btn-outline-info btn-ver-imagen-vehiculo"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalImagenVehiculo"
+                    data-imagen="<?= htmlspecialchars($urlImgActual) ?>"
+                    data-codigo="<?= htmlspecialchars($vehiculoActual['codigo_vehiculo']) ?>"
+                    data-modelo="<?= htmlspecialchars($vehiculoActual['modelo']) ?>"
+                    data-placa="<?= htmlspecialchars($vehiculoActual['placa']) ?>"
+                    data-color="<?= htmlspecialchars($vehiculoActual['color'] ?? 'No especificado') ?>">
+                Ver imagen del vehículo
             </button>
-        </form>
+            <form method="post" class="m-0">
+                <input type="hidden" name="accion" value="liberar">
+                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Seguro que deseas dejar este vehículo?');">
+                    Dejar vehículo
+                </button>
+            </form>
+        </div>
     </div>
 <?php endif; ?>
 
@@ -81,16 +100,18 @@ require __DIR__ . '/../layouts/header.php';
                     <th>Código</th>
                     <th>Placa</th>
                     <th>Modelo</th>
+                    <th>Color</th>
                     <th>Categoría</th>
                     <th>Tamaño</th>
                     <th>Capacidad</th>
                     <th>Estado</th>
+                    <th>Imagen</th>
                     <th>Acción</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($vehiculos)): ?>
-                    <tr><td colspan="8" class="text-center text-muted">No hay vehículos registrados por el administrador.</td></tr>
+                    <tr><td colspan="10" class="text-center text-muted">No hay vehículos registrados por el administrador.</td></tr>
                 <?php else: ?>
                     <?php foreach ($vehiculos as $v): ?>
                         <?php
@@ -100,11 +121,15 @@ require __DIR__ . '/../layouts/header.php';
                             'En uso'     => 'bg-warning text-dark',
                             default      => 'bg-danger',
                         };
+                        $urlImgFila = !empty($v['imagen'])
+                            ? APP_BASE_URL . '/' . ltrim((string)$v['imagen'], '/')
+                            : '';
                         ?>
                         <tr>
                             <td class="fw-bold"><?= htmlspecialchars($v['codigo_vehiculo']) ?></td>
                             <td><?= htmlspecialchars($v['placa']) ?></td>
                             <td><?= htmlspecialchars($v['modelo']) ?></td>
+                            <td><?= htmlspecialchars($v['color'] ?? '—') ?></td>
                             <td><?= htmlspecialchars($v['categoria']) ?></td>
                             <td><?= htmlspecialchars($v['tamano']) ?></td>
                             <td><?= htmlspecialchars($v['capacidad']) ?></td>
@@ -112,6 +137,19 @@ require __DIR__ . '/../layouts/header.php';
                                 <span class="badge <?= $badgeClass ?>">
                                     <?= htmlspecialchars($v['disponibilidad']) ?>
                                 </span>
+                            </td>
+                            <td>
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-info btn-ver-imagen-vehiculo"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalImagenVehiculo"
+                                        data-imagen="<?= htmlspecialchars($urlImgFila) ?>"
+                                        data-codigo="<?= htmlspecialchars($v['codigo_vehiculo']) ?>"
+                                        data-modelo="<?= htmlspecialchars($v['modelo']) ?>"
+                                        data-placa="<?= htmlspecialchars($v['placa']) ?>"
+                                        data-color="<?= htmlspecialchars($v['color'] ?? 'No especificado') ?>">
+                                    Ver imagen del vehículo
+                                </button>
                             </td>
                             <td>
                                 <?php if ($idClienteSeleccion === $idConductor): ?>
@@ -139,6 +177,37 @@ require __DIR__ . '/../layouts/header.php';
         </table>
     </div>
 </div>
+
+<!-- MODAL DE SOLO LECTURA PARA OBSERVAR LA IMAGEN DEL VEHÍCULO -->
+<div class="modal fade" id="modalImagenVehiculo" tabindex="-1" aria-labelledby="modalImagenVehiculoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content panel-card border border-info" style="background-color: #0b1926; color: #ffffff;">
+      <div class="modal-header border-secondary">
+        <div>
+          <h5 class="modal-title fw-bold mb-0" id="modal_vehiculo_titulo">Vista del vehículo</h5>
+          <small class="text-info" id="modal_vehiculo_detalle"></small>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body text-center p-4">
+        <img id="modal_vehiculo_img"
+             src=""
+             alt="Imagen del vehículo"
+             class="img-fluid rounded shadow d-none"
+             style="max-height: 460px; object-fit: contain; border: 1px solid rgba(255,255,255,0.2);">
+        <div id="modal_vehiculo_sin_img" class="py-5 text-muted d-none">
+          El administrador aún no ha subido una fotografía para este vehículo.
+        </div>
+      </div>
+      <div class="modal-footer border-secondary">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
 </div>
+
+</div>
+
+<script src="<?= htmlspecialchars(APP_BASE_URL) ?>/public/css/js/conductor_ver_vehiculo.js"></script>
 
 <?php require __DIR__ . '/../layouts/footer.php'; ?>

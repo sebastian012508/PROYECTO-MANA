@@ -601,3 +601,8 @@ body:has(.admin-neon-green) .navbar .container {
   color: #c9f6ff;
   border-radius: 12px;
 }
+/* Modal de edición de conductores */
+.admin-neon-static .modal-content.panel-card {
+  background-color: #0b1926 !important;
+  color: #ffffff !important;
+}
